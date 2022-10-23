@@ -1,17 +1,19 @@
-<mat-sidenav-container class="sidenav-container" style="minWidth: '200px'">
+<mat-sidenav-container class="sidenav-container">
 
   <mat-sidenav #drawer class="sidenav" fixedInViewport
     [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
     [mode]="(isHandset$ | async) ? 'over' : 'side'"
     [opened]="(isHandset$ | async) === false">
-  <mat-toolbar>Menu</mat-toolbar>
 
-  <mat-nav-list>
-    <a mat-list-item href="./indicadores">Indicadores</a>
-    <a mat-list-item href="./clientes">Clientes</a>
-  </mat-nav-list>
+    <mat-toolbar>Menu</mat-toolbar>
 
-</mat-sidenav>
+    <mat-nav-list>
+      <a mat-list-item href="./indicadores">Indicadores</a>
+      <a mat-list-item href="./clientes">Clientes</a>
+    </mat-nav-list>
+
+  </mat-sidenav>
+
   <mat-sidenav-content>
 
     <mat-toolbar color="primary">
