@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
-
 import { HttpLocal } from 'src/app/backend/httpLocal';
-import { Cliente } from 'src/app/clientes/interface/cliente';
 
 @Injectable({
   providedIn: 'root'
