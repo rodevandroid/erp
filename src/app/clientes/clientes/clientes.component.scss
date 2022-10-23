@@ -1,0 +1,35 @@
+table {
+  width: 99%;
+  margin: 10px;
+}
+
+.mat-row .mat-cell {
+  border-bottom: 1px solid transparent;
+  border-top: 1px solid transparent;
+  cursor: pointer;
+}
+
+.mat-row:hover .mat-cell {
+  border-color: currentColor;
+}
+
+.div-titulo {
+  margin: 10px;
+}
+
+.div-titulo-sub {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.h1-titulo {
+  display: flex;
+  color: #0e4588;
+  align-items: flex-end;
+}
+
+.hr-titulo {
+  border-color: #0e4588;
+  border: 1px solid #0e4588;
+}

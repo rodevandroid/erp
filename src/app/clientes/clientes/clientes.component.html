@@ -1,0 +1,16 @@
+<div class="div-titulo">
+
+  <div class="div-titulo-sub">
+    <h1 class="h1-titulo">Cadastro de Cliente</h1>
+    <button mat-fab color="primary" (click)="onClick()">
+      <mat-icon aria-hidden="false" aria-label="cadastro um novo cliente" [fontIcon]="showTabela ? 'add' : 'arrow_back'"></mat-icon>
+    </button>
+  </div>
+
+  <hr class="hr-titulo">
+
+</div>
+
+<app-tabela *ngIf="showTabela" [dataSource]="clientes"> </app-tabela>
+
+<app-formulario *ngIf="!showTabela" (linhaTabela)="setCliente($event)" [dataSource]="cliente"></app-formulario>
