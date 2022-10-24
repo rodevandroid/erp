@@ -1,9 +1,10 @@
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component, OnInit } from '@angular/core';
-import { map } from 'rxjs/operators';
-import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
-
-import { IndicadorService } from 'src/app/indicadores/service/indicador.service';
 import { Router } from '@angular/router';
+import { map } from 'rxjs/operators';
+import { IndicadorService } from 'src/app/indicadores/service/indicador.service';
+import {MatSnackBar} from '@angular/material/snack-bar';
+
 
 @Component({
   selector: 'app-indicadores',
@@ -13,8 +14,9 @@ import { Router } from '@angular/router';
 
 export class IndicadoresComponent implements OnInit {
 
-  public previsaoReceita: number = 0;
-  private service: IndicadorService;
+  public previsaoReceita = 0;
+
+  private service = new IndicadorService();
 
   public cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
 
@@ -22,16 +24,16 @@ export class IndicadoresComponent implements OnInit {
 
       if (matches) {
         return [
-          { title: 'Total de Vendas', cols: 1, rows: 1, dados: this.getTotalVendas() },
-          { title: 'Comissões', cols: 1, rows: 1, dados: this.getComissoes() },
+          { title: 'Total de Vendas',   cols: 1, rows: 1, dados: this.getTotalVendas() },
+          { title: 'Comissões',         cols: 1, rows: 1, dados: this.getComissoes() },
           { title: 'Boletos em Atrazo', cols: 1, rows: 1, dados: this.getBoletosAtrazo() },
           { title: 'Boletos a Receber', cols: 1, rows: 1, dados: this.getBoletosReceber() }
         ];
       }
 
       return [
-        { title: 'Total de Vendas', cols: 2, rows: 1, dados: this.getTotalVendas() },
-        { title: 'Comissões', cols: 1, rows: 1, dados: this.getComissoes() },
+        { title: 'Total de Vendas',   cols: 2, rows: 1, dados: this.getTotalVendas() },
+        { title: 'Comissões',         cols: 1, rows: 1, dados: this.getComissoes() },
         { title: 'Boletos em Atrazo', cols: 1, rows: 2, dados: this.getBoletosAtrazo() },
         { title: 'Boletos a Receber', cols: 1, rows: 1, dados: this.getBoletosReceber() }
       ];
@@ -40,11 +42,9 @@ export class IndicadoresComponent implements OnInit {
 
   );
 
-  constructor(private breakpointObserver: BreakpointObserver, private router: Router) {
-
-    this.service = new IndicadorService();
-
-  };
+  constructor(
+    private breakpointObserver: BreakpointObserver, private router: Router, private _snackBar: MatSnackBar
+  ) { };
 
   ngOnInit() {
 
@@ -52,7 +52,7 @@ export class IndicadoresComponent implements OnInit {
 
   };
 
-  public previsaoReceber () {
+  private previsaoReceber () {
 
     this.service.getBoletosAtrazo().then( atrazados => {
 
@@ -109,7 +109,7 @@ export class IndicadoresComponent implements OnInit {
 
   private getBoletosAtrazo() {
 
-    return this.service.getBoletosAtrazo().then( total => {
+    return this.service.getBoletosAtrazo().then( (total) => {
 
       return total;
 
@@ -119,9 +119,47 @@ export class IndicadoresComponent implements OnInit {
 
   private getBoletosReceber() {
 
-    return this.service.getBoletosReceber().then( total => {
+    return this.service.getBoletosReceber().then( (total) => {
 
       return total;
+
+    });
+
+  };
+
+  private getReceitaLiquida() {
+
+    return this.service.getTotalVendas().then( (total) => {
+
+      return total;
+
+    }).then( vendas => {
+
+      return this.service.getBoletosAtrazo().then( atrazados => {
+
+        return { vendas, atrazados };
+
+      });
+
+    }).then( atrazados => {
+
+      return this.service.getComissoes().then( comissao => {
+
+        return {
+          vendas: atrazados.vendas,
+          atrazados: atrazados.atrazados,
+          comissao: comissao
+        };
+
+      });
+
+    }).then( movimento => {
+
+      return <number>movimento.vendas - ( <number>movimento.comissao + <number>movimento.atrazados );
+
+    }).catch( error => {
+
+      this._snackBar.open(error.message, 'Fechar');
 
     });
 
