@@ -6,10 +6,10 @@ import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 import { IndicadoresRoutingModule } from './indicadores-routing.module';
 import { IndicadoresComponent } from './indicadores/indicadores.component';
-
 
 @NgModule({
   declarations: [
@@ -23,6 +23,7 @@ import { IndicadoresComponent } from './indicadores/indicadores.component';
     MatMenuModule,
     MatIconModule,
     MatButtonModule,
+    MatSnackBarModule,
     LayoutModule
   ]
 })
