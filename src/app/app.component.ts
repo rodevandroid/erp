@@ -11,7 +11,7 @@ import { map, shareReplay } from 'rxjs/operators';
 
 export class AppComponent {
 
-  title = 'ERP Web 2.0';
+  title = 'ERP Litoral';
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
     map(result => result.matches),
