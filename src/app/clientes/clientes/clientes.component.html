@@ -7,10 +7,12 @@
     </button>
   </div>
 
-  <hr class="hr-titulo">
+  <br>
+
+  <mat-divider></mat-divider>
 
 </div>
 
-<app-tabela *ngIf="showTabela" [dataSource]="clientes"> </app-tabela>
+<app-tabela *ngIf="showTabela" [dataSource]="clientes" (linhaTabela)="clickLinha($event)"> </app-tabela>
 
-<app-formulario *ngIf="!showTabela" (linhaTabela)="setCliente($event)" [dataSource]="cliente"></app-formulario>
+<app-formulario [formulario]="clienteForm" *ngIf="!showTabela" (clienteFrm)="setCliente($event)"></app-formulario>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Cliente } from 'src/app/clientes/interface/cliente';
 import { ClienteService } from 'src/app/clientes/service/cliente.service';
 
@@ -11,11 +11,18 @@ import { ClienteService } from 'src/app/clientes/service/cliente.service';
 
 export class ClientesComponent implements OnInit {
 
-  public clientes: Cliente[] = [];
-  public cliente: Cliente = <Cliente>{};
-  public showTabela = true;
+  public clientes: Cliente[]  = [];
+  public cliente: Cliente     = <Cliente>{};
+  public showTabela           = true;
 
   private service: ClienteService;
+
+  clienteForm = new FormGroup({
+    position: new FormControl('', Validators.required),
+    name    : new FormControl('', [Validators.minLength(5), Validators.required]),
+    weight  : new FormControl(''),
+    symbol  : new FormControl('')
+  });
 
   constructor() {
 
@@ -23,7 +30,8 @@ export class ClientesComponent implements OnInit {
 
   };
 
-  async ngOnInit() {
+
+  ngOnInit() {
 
     this.service.getAllCliente().then( data => {
 
@@ -33,19 +41,39 @@ export class ClientesComponent implements OnInit {
 
   };
 
-  setCliente( linha: any ): void {
+  public setCliente( clienteFrm: any ): void {
 
-    this.cliente = <Cliente>linha;
-    this.showTabela = false;
+    this.cliente = <Cliente>clienteFrm;
+    this.showTabela = true;
 
-    console.log('Conatiner Linha: ', linha);
+    this.clientes.push( this.cliente );
+
+    console.log('Conatiner Linha: ', clienteFrm);
 
   };
 
+  private teste: string = 'paulo';
+
   public onClick(): void {
+
+    this.clienteForm.setValue({
+      position: this.teste,
+      name: '',
+      weight: '',
+      symbol: '',
+    });
 
     this.showTabela = !this.showTabela;
 
   };
+
+  public clickLinha( row: any) {
+
+    this.clienteForm.patchValue( row );
+
+    this.showTabela = !this.showTabela;
+
+  };
+
 
 };

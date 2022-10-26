@@ -1,2 +1,60 @@
-<h3>Formulario de cadstro de cliente</h3>
-<p>{{ cliente | json}}</p>
+  <div class="form-cliente">
+
+  <form [formGroup]="formulario">
+
+    <table>
+
+      <tr>
+
+        <td>
+          <mat-form-field class="example-form-field" appearance="fill">
+
+            <mat-label for="first-name">Posição: </mat-label>
+            <input matInput  id="first-name" type="text" formControlName="position">
+
+          </mat-form-field>
+        </td>
+
+        <td>
+          <mat-form-field class="example-form-field" appearance="fill">
+
+            <mat-label for="last-name">Nome: </mat-label>
+            <input matInput  id="last-name" type="text" formControlName="name">
+
+          </mat-form-field>
+        </td>
+
+        <td>
+          <mat-form-field class="example-form-field" appearance="fill">
+
+            <mat-label for="last-name">Peso: </mat-label>
+            <input matInput  id="last-name" type="text" formControlName="weight">
+
+          </mat-form-field>
+        </td>
+
+        <td>
+          <mat-form-field class="example-form-field" appearance="fill">
+
+            <mat-label for="last-name">Simbolo: </mat-label>
+            <input matInput  id="last-name" type="text" formControlName="symbol">
+
+          </mat-form-field>
+        </td>
+
+      </tr>
+
+    </table>
+
+    <div class="btn-gravar-cliente">
+
+      <button mat-stroked-button color="primary" (click)="onSubmit()">
+        <mat-icon aria-hidden="false" aria-label="Icone add botao gravar" fontIcon="add"></mat-icon>Gravar
+      </button>
+
+    </div>
+
+  </form>
+
+</div>
+

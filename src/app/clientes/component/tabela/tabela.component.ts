@@ -1,5 +1,7 @@
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
-
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
+import { map } from 'rxjs/operators';
 import { Cliente } from 'src/app/clientes/interface/cliente';
 
 @Component({
@@ -14,23 +16,49 @@ export class TabelaComponent implements OnInit {
   @Input() dataSource: Cliente[] = [];
 
   public clientes: Cliente[] = [];
-  public displayedColumns    = ['position', 'name', 'weight', 'symbol'];
+  public colunas:  string[]  = [];
 
-  constructor() { };
+  private displayedColumns = this.breakpointObserver.observe(Breakpoints.Tablet).pipe(
+
+    map(({ matches }) => {
+
+      if (matches) {
+        return [ 'weight', 'symbol'];
+      }
+
+      return ['position', 'name', 'weight', 'symbol'];
+
+    })
+
+  );
+
+  constructor(
+    private breakpointObserver: BreakpointObserver, private router: Router
+  ) {
+
+    this.displayedColumns.subscribe(
+      resp => this.colunas = resp
+    );
+
+  };
 
   ngOnInit(): void {
 
     setTimeout( ( ) => {
       this.clientes = this.dataSource;
-    }, 300);
+    }, 100);
 
   };
 
   setLine( row: Cliente ) {
 
     this.linhaTabela.emit( row );
-    console.log('Tabela Linha: ', row);
 
   };
+
+  private teste() {
+    alert('teste');
+    localStorage
+  }
 
 };

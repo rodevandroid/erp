@@ -1,9 +1,10 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
-import { IndicadorService } from 'src/app/indicadores/service/indicador.service';
-import {MatSnackBar} from '@angular/material/snack-bar';
+
+import { IndicadorService } from './../service/indicador.service';
 
 
 @Component({
@@ -127,7 +128,7 @@ export class IndicadoresComponent implements OnInit {
 
   };
 
-  private getReceitaLiquida() {
+  private async getReceitaLiquida() {
 
     return this.service.getTotalVendas().then( (total) => {
 

@@ -1,5 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
-
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { Cliente } from 'src/app/clientes/interface/cliente';
 
 @Component({
@@ -10,15 +10,22 @@ import { Cliente } from 'src/app/clientes/interface/cliente';
 
 export class FormularioComponent implements OnInit {
 
-  @Input() dataSource: Cliente = <Cliente>{};
-
-  public cliente: Cliente = <Cliente>{};
+  @Input() formulario: FormGroup = <FormGroup>{};
+  @Output() clienteFrm: EventEmitter<any> = new EventEmitter();
 
   constructor() { };
 
   ngOnInit(): void {
 
-    this.cliente = this.dataSource;
+  };
+
+  onSubmit() {
+
+    if ( this.formulario.valid && this.formulario.valueChanges) {
+
+      this.clienteFrm.emit( <Cliente>this.formulario.value );
+
+    };
 
   };
 
