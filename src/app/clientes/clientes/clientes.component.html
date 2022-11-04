@@ -1,7 +1,7 @@
 <div class="div-titulo">
 
   <div class="div-titulo-sub">
-    <h1 class="h1-titulo">Cadastro de Cliente</h1>
+    <h1 class="h1-titulo">Gerar Link de Cobrança</h1>
     <button mat-fab color="primary" (click)="onClick()">
       <mat-icon aria-hidden="false" aria-label="cadastro um novo cliente" [fontIcon]="showTabela ? 'add' : 'arrow_back'"></mat-icon>
     </button>
@@ -13,6 +13,6 @@
 
 </div>
 
-<app-tabela *ngIf="showTabela" [dataSource]="clientes" (linhaTabela)="clickLinha($event)"> </app-tabela>
+<app-tabela *ngIf="showTabela" [dataSource]="clientes" (linhaTabela)="clickLinha($event)" (geraLinkCob)="gerarLink( $event )" (consultaLinkCob)="consultarLink( $event )"> </app-tabela>
 
 <app-formulario [formulario]="clienteForm" *ngIf="!showTabela" (clienteFrm)="setCliente($event)"></app-formulario>
