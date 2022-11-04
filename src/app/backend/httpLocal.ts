@@ -23,14 +23,14 @@ export class HttpLocal {
         setTimeout( () => {
 
           this.dsCliente = [
-            {id: 0, position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-            {id: 1, position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-            {id: 2, position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-            {id: 3, position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-            {id: 4, position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
-            {id: 5, position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
-            {id: 6, position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
-            {id: 7, position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
+            {id: 0, pedido: '0001', cliente: 'Rodrigo Coutinho', vendedor: 'Eder Bolonha', valor: 150357.25, link: ''},
+            {id: 1, pedido: '0002', cliente: 'Eder Bolonha', vendedor: 'Rodrigo Coutinho', valor: 220357.25, link: ''},
+            {id: 2, pedido: '0003', cliente: 'Anderson Rocha', vendedor: 'Bruna Xavier', valor: 330357.25, link: ''},
+            {id: 3, pedido: '0004', cliente: 'Bruna Xavier', vendedor: 'Anderson Rocha', valor: 440357.25, link: ''},
+            {id: 4, pedido: '0005', cliente: 'Haira Carminati', vendedor: 'Cassiano Ferreira', valor: 550357.25, link: ''},
+            {id: 5, pedido: '0006', cliente: 'Cassiano Ferreira', vendedor: 'Haira Carminati', valor: 660357.25, link: ''},
+            {id: 6, pedido: '0007', cliente: 'Rayssa Melo', vendedor: 'Paulo Machado', valor: 77357.25, link: ''},
+            {id: 7, pedido: '0008', cliente: 'Paulo Machado', vendedor: 'Rayssa Melo', valor: 88357.25, link: ''},
           ];
 
           resolve( <Cliente[]>this.dsCliente );
@@ -56,14 +56,14 @@ export class HttpLocal {
         setTimeout( () => {
 
           this.dsCliente = [
-            {id: 0, position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-            {id: 1, position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-            {id: 2, position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-            {id: 3, position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-            {id: 4, position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
-            {id: 5, position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
-            {id: 6, position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
-            {id: 7, position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
+            {id: 0, pedido: '0001', cliente: 'Rodrigo Coutinho', vendedor: 'Eder Bolonha', valor: 150357.25, link: ''},
+            {id: 1, pedido: '0002', cliente: 'Eder Bolonha', vendedor: 'Rodrigo Coutinho', valor: 220357.25, link: ''},
+            {id: 2, pedido: '0003', cliente: 'Anderson Rocha', vendedor: 'Bruna Xavier', valor: 330357.25, link: ''},
+            {id: 3, pedido: '0004', cliente: 'Bruna Xavier', vendedor: 'Anderson Rocha', valor: 440357.25, link: ''},
+            {id: 4, pedido: '0005', cliente: 'Haira Carminati', vendedor: 'Cassiano Ferreira', valor: 550357.25, link: ''},
+            {id: 5, pedido: '0006', cliente: 'Cassiano Ferreira', vendedor: 'Haira Carminati', valor: 660357.25, link: ''},
+            {id: 6, pedido: '0007', cliente: 'Rayssa Melo', vendedor: 'Paulo Machado', valor: 77357.25, link: ''},
+            {id: 7, pedido: '0008', cliente: 'Paulo Machado', vendedor: 'Rayssa Melo', valor: 88357.25, link: ''},
           ].filter( item => item.id == id );
 
           resolve( <Cliente[]>this.dsCliente );
