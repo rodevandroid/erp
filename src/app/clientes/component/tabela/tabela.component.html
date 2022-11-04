@@ -1,33 +1,61 @@
 
-<table mat-table [dataSource]="clientes" class="mat-elevation-z8">
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
   <!--- Note that these columns can be defined in any order. The actual rendered columns are set as a property on the row definition" -->
 
-  <!-- Position Column -->
-  <ng-container matColumnDef="position">
-    <th mat-header-cell *matHeaderCellDef> Position </th>
-    <td mat-cell *matCellDef="let cliente"> {{cliente.position}} </td>
+  <!-- Pedido Column -->
+  <ng-container matColumnDef="pedido">
+    <th mat-header-cell *matHeaderCellDef> Pedido </th>
+    <td mat-cell *matCellDef="let cliente"> {{cliente.pedido}} </td>
   </ng-container>
 
-  <!-- Name Column -->
-  <ng-container matColumnDef="name">
-    <th mat-header-cell *matHeaderCellDef> Name </th>
-    <td mat-cell *matCellDef="let cliente"> {{cliente.name}} </td>
+  <!-- Cliente Column -->
+  <ng-container matColumnDef="cliente">
+    <th mat-header-cell *matHeaderCellDef> Cliente </th>
+    <td mat-cell *matCellDef="let cliente"> {{cliente.cliente}} </td>
   </ng-container>
 
-  <!-- Weight Column -->
-  <ng-container matColumnDef="weight">
-    <th mat-header-cell *matHeaderCellDef> Weight </th>
-    <td mat-cell *matCellDef="let cliente"> {{cliente.weight | currency}} </td>
+  <!-- Vendedor Column -->
+  <ng-container matColumnDef="vendedor">
+    <th mat-header-cell *matHeaderCellDef> Vendedor </th>
+    <td mat-cell *matCellDef="let cliente"> {{cliente.vendedor}} </td>
+  </ng-container>
+
+  <!-- Valor Column -->
+  <ng-container matColumnDef="valor">
+    <th mat-header-cell *matHeaderCellDef> Valor </th>
+    <td mat-cell *matCellDef="let cliente"> {{cliente.valor  | currency}} </td>
+  </ng-container>
+
+  <!-- link Column -->
+  <ng-container matColumnDef="link">
+    <th mat-header-cell *matHeaderCellDef> Link </th>
+    <td mat-cell *matCellDef="let cliente"> {{cliente.link }} </td>
   </ng-container>
 
   <!-- Symbol Column -->
-  <ng-container matColumnDef="symbol">
-    <th mat-header-cell *matHeaderCellDef> Symbol </th>
-    <td mat-cell *matCellDef="let cliente"> {{cliente.symbol}} </td>
+  <ng-container matColumnDef="action">
+    <th mat-header-cell *matHeaderCellDef> Action </th>
+    <td mat-cell *matCellDef="let cliente">
+
+      <button mat-icon-button color="primary" aria-label="icone gerar link cobrança" matTooltip="Gerar link">
+        <mat-icon (click)="gerarLink( cliente )" >
+          publish
+        </mat-icon>
+      </button>
+
+      <button mat-icon-button color="primary" aria-label="icone gerar link cobrança" matTooltip="Consultar link">
+        <mat-icon (click)="consultarLink( cliente )" >
+          add_link
+        </mat-icon>
+      </button>
+
+    </td>
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="colunas"></tr>
-  <tr mat-row *matRowDef="let row; columns: colunas;" (click)="setLine( row )"></tr>
+  <tr mat-row *matRowDef="let row; columns: colunas;" (dblclick)="setLine( row )"></tr>
 
 </table>
+
+<mat-paginator [pageSizeOptions]="itens" showFirstLastButtons (page)="onChangePage($event)" aria-label="Selecionar página de elementos periódicos"></mat-paginator>
