@@ -1,7 +1,8 @@
 export interface Cliente {
   id: number;
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
+  pedido: string;
+  cliente: string;
+  vendedor: string;
+  valor: number;
+  link: string;
 }
