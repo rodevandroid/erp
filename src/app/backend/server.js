@@ -1,8 +1,7 @@
 const express     = require("express");
 const app         = express();
 const cors        = require('cors');
-const bodyParser  = require('body-parser')
-const axios       = require('axios');
+const bodyParser  = require('body-parser');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -10,6 +9,7 @@ app.use(bodyParser.json());
 const postedXmlData = require('./service/post-xml-data');
 const getXmlData    = require('./service/get-xml-data');
 const xmlExtract    = require('./service/xml-extract');
+const postMaxiPago  = require('./service/post-maxi-pago');
 
 const allowedOrigins = ['http://localhost:4200'];
 
@@ -26,13 +26,7 @@ app.post("/gerarLink", (req, res) => {
   let cliente = req.body;
   let dataXml = postedXmlData( cliente );
 
-  axios.post('https://testapi.maxipago.net/UniversalAPI/postAPI', dataXml, {
-    headers: {
-      'Content-Type': 'application/xml',
-      'Accept': 'application/xml',
-      'Response-Type': 'json'
-    }
-  }).then( resp => {
+  postMaxiPago( dataXml ).then( resp => {
 
     let orderId = xmlExtract(resp.data, '<pay_order_id>', '</pay_order_id>');
     let message = xmlExtract(resp.data, '<message>', '</message>');
@@ -56,13 +50,7 @@ app.post("/consultarLink", (req, res) => {
   let cliente = req.body;
   let getXml  = getXmlData(cliente?.link);
 
-  axios.post('https://testapi.maxipago.net/UniversalAPI/postAPI', getXml, {
-    headers: {
-      'Content-Type': 'application/xml',
-      'Accept': 'application/xml',
-      'Response-Type': 'text'
-    }
-  }).then( resp => {
+  postMaxiPago( getXml ).then( resp => {
 
     let statusText  = xmlExtract( resp.data, '<status>', '</status>');
     let pedidoId    = xmlExtract( resp.data, '<referenceNum>', '</referenceNum>');
