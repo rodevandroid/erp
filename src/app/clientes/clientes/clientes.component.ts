@@ -51,8 +51,6 @@ export class ClientesComponent implements OnInit  {
 
     this.clientes.push( this.cliente );
 
-    console.log('Conatiner Linha: ', clienteFrm);
-
   };
 
   public onClick(): void {
@@ -80,10 +78,8 @@ export class ClientesComponent implements OnInit  {
   public gerarLink( cliente: Cliente): void {
 
     if ( cliente.link ){
-
       this.openSnackBar( {pedidoId: cliente.pedido, statusText: 'Link existente: ' + cliente.link} );
       return;
-
     };
 
     const httpOptions = {
@@ -141,9 +137,7 @@ export class ClientesComponent implements OnInit  {
 
         this.openSnackBar( data );
 
-      },
-
-      error: ( err ) => {
+      }, error: ( err ) => {
 
         console.log( 'Erro no subscribe: ', err );
         this.clientes[objIndex].process = false;
@@ -154,106 +148,10 @@ export class ClientesComponent implements OnInit  {
 
   };
 
-  private postedXmlData( cliente: Cliente): string {
-
-    let pedido = this.pedidoDados( cliente );
-
-    return `<?xml version="1.0" encoding="UTF-8"?>
-    <api-request>
-      <verification>
-          <merchantId>${pedido.storeId}</merchantId>
-          <merchantKey>${pedido.storeKey}</merchantKey>
-      </verification>
-      <command>add-payment-order</command>
-      <request>
-        <referenceNum>${pedido.numero}</referenceNum>
-        <fraudCheck>${pedido.fraudCheck}</fraudCheck>
-        <billing>
-          <address>${pedido.endereco}</address>
-          <address2>1 Andar</address2>
-          <district>${pedido.bairro}</district>
-          <city>${pedido.cidade}</city>
-          <state>${pedido.estado}</state>
-          <postalcode>${pedido.cep}</postalcode>
-          <country>${pedido.pais}</country>
-          <email>${pedido.email}</email>
-          <customerIdExt>${pedido.cpf}</customerIdExt>
-          <firstName>${pedido.nome}</firstName>
-          <lastName>${pedido.sobrenome}</lastName>
-          <dob>${pedido.nacimento}</dob>
-          <sex>${pedido.sexo}</sex>
-          <phone>${pedido.telefone}</phone>
-        </billing>
-        <transactionDetail>
-          <description>${pedido.descricao}</description>
-          <comments>${pedido.comentario}</comments>
-          <emailSubject>${pedido.subject}</emailSubject>
-          <expirationDate>${pedido.expiracao}</expirationDate>
-          <payType>
-            <creditCard>
-              <processorID>1</processorID>
-              <operation>sale</operation>
-              <numberOfInstallments>${pedido.parcelas}</numberOfInstallments>
-              <currencyCode>BRL</currencyCode>
-              <amount>${pedido.valor}</amount>
-            </creditCard>
-          </payType>
-        </transactionDetail>
-      </request>
-    </api-request>`;
-
-  };
-
-  private getXmlData( payOrderId: string ): string {
-
-    return `<?xml version="1.0" encoding="UTF-8"?>
-    <api-request>
-      <verification>
-        <merchantId>9478</merchantId>
-        <merchantKey>et9rs13u2v1juixk2z66poxd</merchantKey>
-      </verification>
-      <command>get-payment-order</command>
-      <request>
-        <payOrderId>${payOrderId}</payOrderId>
-      </request>
-    </api-request>`;
-
-  };
-
-  private pedidoDados( cliente: Cliente ): any {
-
-    return {
-      numero: 20221103,
-      valor: 153.390,
-      endereco: 'Rod. Darly Santos',
-      bairro: 'Jockey de Itaparica',
-      cidade: 'Vila Velha',
-      estado: 'ES',
-      cep: '29.100-250',
-      pais: 'Brasil',
-      email: 'rodrigo.almeida@litoraltextil.com.br',
-      cpf: '07199988897',
-      nome: cliente.cliente,
-      sobrenome: 'Coutinho',
-      nacimento: '15/04/2022',
-      sexo: 'M',
-      telefone: '27 99924 8869',
-      descricao: 'Pagamento Kit Placa Solar',
-      comentario: 'Pagar ate dia 30',
-      subject: 'Favor efetuar o pagamento',
-      expiracao: '06/17/2022',
-      parcelas: 10,
-      fraudCheck: 'N',
-      storeId: 9478,
-      storeKey: 'et9rs13u2v1juixk2z66poxd'
-    };
-
-  };
-
   private openSnackBar( data: any ) {
     this._snackBar.open(`Pedido: ${data.pedidoId}  Status: ${data.statusText}`, 'Fechar', {
       duration: 3000
     });
-  }
+  };
 
 };
