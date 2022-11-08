@@ -30,7 +30,12 @@
   <!-- link Column -->
   <ng-container matColumnDef="link">
     <th mat-header-cell *matHeaderCellDef> Link </th>
-    <td mat-cell *matCellDef="let cliente"> {{cliente.link }} </td>
+    <td mat-cell *matCellDef="let cliente">
+      <div style="display: flex; justify-content: start;">
+        <span> {{cliente.link }} </span>
+        <mat-spinner *ngIf="cliente.process" [diameter]="15"></mat-spinner>
+      </div>
+    </td>
   </ng-container>
 
   <!-- Symbol Column -->
@@ -45,9 +50,7 @@
       </button>
 
       <button mat-icon-button color="primary" aria-label="icone gerar link cobrança" matTooltip="Consultar link">
-        <mat-icon (click)="consultarLink( cliente )" >
-          add_link
-        </mat-icon>
+          <mat-icon (click)="consultarLink( cliente )">add_link</mat-icon>
       </button>
 
     </td>

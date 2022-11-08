@@ -5,4 +5,5 @@ export interface Cliente {
   vendedor: string;
   valor: number;
   link: string;
+  process: boolean;
 }

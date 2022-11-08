@@ -4,6 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs';
 import { Cliente } from 'src/app/clientes/interface/cliente';
 import { ClienteService } from 'src/app/clientes/service/cliente.service';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-clientes',
@@ -27,7 +28,7 @@ export class ClientesComponent implements OnInit {
     link    : new FormControl(''),
   });
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private _snackBar: MatSnackBar) {
 
     this.service = new ClienteService();
 
@@ -78,20 +79,36 @@ export class ClientesComponent implements OnInit {
 
   public gerarLink( cliente: Cliente): void {
 
-    console.log( 'Gerar link: ', cliente );
-    return;
+    if ( cliente.link ){
 
-    this.http.post('https://testapi.maxipago.net/UniversalAPI/postAPI', this.postedXmlData( cliente ), this.httpOptions()).pipe(first()).subscribe({
+      this.openSnackBar( {pedidoId: cliente.pedido, statusText: 'Link existente: ' + cliente.link} );
+      return;
 
-      next: ( resp ) => {
+    };
 
-        console.log( 'Resposta subscribe: ', resp );
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json'
+      })
+    };
 
-      },
+    const objIndex = this.clientes.findIndex(( obj => obj.pedido == cliente.pedido ));
 
-      error: ( err ) => {
+    this.clientes[objIndex].process = true;
+
+    this.http.post<Cliente>('http://localhost:3000/gerarLink', cliente, httpOptions).pipe(first()).subscribe({
+
+      next: ( data: any) => {
+
+        cliente.link = data.orderId;
+
+        this.clientes[objIndex] = cliente;
+        this.clientes[objIndex].process = false;
+
+      }, error: ( err ) => {
 
         console.log( 'Erro no subscribe: ', err );
+        this.clientes[objIndex].process = false;
 
       }
 
@@ -101,36 +118,39 @@ export class ClientesComponent implements OnInit {
 
   public consultarLink( cliente: Cliente): void {
 
-    console.log( 'Consultar link: ', cliente );
-    return;
+    if ( !cliente.link ){
+      this.openSnackBar( {pedidoId: cliente.pedido, statusText: 'Linke nao encontrado'} );
+      return
+    };
 
-    this.http.post('https://testapi.maxipago.net/UniversalAPI/postAPI', this.getXmlData( cliente.link ), this.httpOptions()).pipe(first()).subscribe({
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json'
+      })
+    };
 
-      next: ( resp ) => {
+    const objIndex = this.clientes.findIndex(( obj => obj.pedido == cliente.pedido ));
+    this.clientes[objIndex].process = true;
 
-        console.log( 'Resposta subscribe: ', resp );
+    this.http.post<Cliente>('http://localhost:3000/consultarLink', cliente, httpOptions ).pipe(first()).subscribe({
+
+      next: ( data: any ) => {
+
+        console.log( 'Resposta subscribe: ', data );
+        this.clientes[objIndex].process = false;
+
+        this.openSnackBar( data );
 
       },
 
       error: ( err ) => {
 
         console.log( 'Erro no subscribe: ', err );
+        this.clientes[objIndex].process = false;
 
       }
 
     });
-
-  };
-
-  private httpOptions(): Object {
-
-    return {
-      headers: new HttpHeaders({
-        'Content-Type':  'application/xml', //<- To SEND XML
-        'Accept':  'application/xml',       //<- To ask for XML
-        'Response-Type': 'text'             //<- b/c Angular understands text
-      })
-    };
 
   };
 
@@ -189,8 +209,8 @@ export class ClientesComponent implements OnInit {
     return `<?xml version="1.0" encoding="UTF-8"?>
     <api-request>
       <verification>
-        <merchantId>store-id</merchantId>
-        <merchantKey>store-key</merchantKey>
+        <merchantId>9478</merchantId>
+        <merchantKey>et9rs13u2v1juixk2z66poxd</merchantKey>
       </verification>
       <command>get-payment-order</command>
       <request>
@@ -224,10 +244,16 @@ export class ClientesComponent implements OnInit {
       expiracao: '06/17/2022',
       parcelas: 10,
       fraudCheck: 'N',
-      storeId: 44710,
-      storeKey: ''
+      storeId: 9478,
+      storeKey: 'et9rs13u2v1juixk2z66poxd'
     };
 
   };
+
+  private openSnackBar( data: any ) {
+    this._snackBar.open(`Pedido: ${data.pedidoId}  Status: ${data.statusText}`, 'Fechar', {
+      duration: 3000
+    });
+  }
 
 };
