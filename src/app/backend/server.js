@@ -1,14 +1,15 @@
-const express = require("express");
-const axios   = require('axios');
-const app     = express();
-const cors    = require('cors');
-var bodyParser = require('body-parser')
+const express     = require("express");
+const app         = express();
+const cors        = require('cors');
+const bodyParser  = require('body-parser')
+const axios       = require('axios');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 const postedXmlData = require('./service/post-xml-data');
 const getXmlData    = require('./service/get-xml-data');
+const xmlExtract    = require('./service/xml-extract');
 
 const allowedOrigins = ['http://localhost:4200'];
 
@@ -22,8 +23,6 @@ const port = 3000;
 
 app.post("/gerarLink", (req, res) => {
 
-  console.clear();
-
   let cliente = req.body;
   let dataXml = postedXmlData( cliente );
 
@@ -35,15 +34,8 @@ app.post("/gerarLink", (req, res) => {
     }
   }).then( resp => {
 
-    let dados = resp.data;
-
-    const posIniPed = dados.indexOf( '<pay_order_id>' );
-    const posFinPed = dados.indexOf( '</pay_order_id>' );
-    let orderId     = dados.substr((posIniPed+14), (posFinPed - (posIniPed+14)));
-
-    const posIniMsg = dados.indexOf( '<message>' );
-    const posFinMsg = dados.indexOf( '</message>' );
-    let message     = dados.substr((posIniMsg+9), (posFinMsg - (posIniMsg+9)));
+    let orderId = xmlExtract(resp.data, '<pay_order_id>', '</pay_order_id>');
+    let message = xmlExtract(resp.data, '<message>', '</message>');
 
     res.status(200).send({
       orderId,
@@ -61,28 +53,19 @@ app.post("/gerarLink", (req, res) => {
 
 app.post("/consultarLink", (req, res) => {
 
-  console.clear();
-
   let cliente = req.body;
   let getXml  = getXmlData(cliente?.link);
 
   axios.post('https://testapi.maxipago.net/UniversalAPI/postAPI', getXml, {
     headers: {
-      'Content-Type': 'application/xml', //<- To SEND XML
-      'Accept': 'application/xml',       //<- To ask for XML
-      'Response-Type': 'text'            //<- b/c Angular understands text
+      'Content-Type': 'application/xml',
+      'Accept': 'application/xml',
+      'Response-Type': 'text'
     }
   }).then( resp => {
 
-    let dados = resp.data;
-
-    const posIniPed = dados.indexOf( '<status>' );
-    const posFinPed = dados.indexOf( '</status>' );
-    let statusText  = dados.substr((posIniPed+8), (posFinPed - (posIniPed+8)));
-
-    const posIniMsg = dados.indexOf( '<referenceNum>' );
-    const posFinMsg = dados.indexOf( '</referenceNum>' );
-    let pedidoId    = dados.substr((posIniMsg+14), (posFinMsg - (posIniMsg+14)));
+    let statusText  = xmlExtract( resp.data, '<status>', '</status>');
+    let pedidoId    = xmlExtract( resp.data, '<referenceNum>', '</referenceNum>');
 
     res.status(200).send({
       statusText,
