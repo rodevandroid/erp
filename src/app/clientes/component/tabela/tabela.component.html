@@ -1,33 +1,26 @@
 
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
-  <!--- Note that these columns can be defined in any order. The actual rendered columns are set as a property on the row definition" -->
-
-  <!-- Pedido Column -->
   <ng-container matColumnDef="pedido">
     <th mat-header-cell *matHeaderCellDef> Pedido </th>
     <td mat-cell *matCellDef="let cliente"> {{cliente.pedido}} </td>
   </ng-container>
 
-  <!-- Cliente Column -->
   <ng-container matColumnDef="cliente">
     <th mat-header-cell *matHeaderCellDef> Cliente </th>
     <td mat-cell *matCellDef="let cliente"> {{cliente.cliente}} </td>
   </ng-container>
 
-  <!-- Vendedor Column -->
   <ng-container matColumnDef="vendedor">
     <th mat-header-cell *matHeaderCellDef> Vendedor </th>
     <td mat-cell *matCellDef="let cliente"> {{cliente.vendedor}} </td>
   </ng-container>
 
-  <!-- Valor Column -->
   <ng-container matColumnDef="valor">
     <th mat-header-cell *matHeaderCellDef> Valor </th>
     <td mat-cell *matCellDef="let cliente"> {{cliente.valor  | currency}} </td>
   </ng-container>
 
-  <!-- link Column -->
   <ng-container matColumnDef="link">
     <th mat-header-cell *matHeaderCellDef> Link </th>
     <td mat-cell *matCellDef="let cliente">
@@ -38,7 +31,6 @@
     </td>
   </ng-container>
 
-  <!-- Symbol Column -->
   <ng-container matColumnDef="action">
     <th mat-header-cell *matHeaderCellDef> Action </th>
     <td mat-cell *matCellDef="let cliente">

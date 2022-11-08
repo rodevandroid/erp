@@ -12,7 +12,7 @@ import { ClienteService } from 'src/app/clientes/service/cliente.service';
   styleUrls: ['./clientes.component.scss']
 })
 
-export class ClientesComponent implements OnInit {
+export class ClientesComponent implements OnInit  {
 
   public clientes: Cliente[]  = [];
   public cliente: Cliente     = <Cliente>{};
