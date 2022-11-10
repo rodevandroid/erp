@@ -48,12 +48,10 @@ export class ClientesComponent implements OnInit, AfterViewInit  {
 
   private paginacao() {
 
-    this.service.getClientePaginator(this.paginator?.pageIndex ?? 0, this.paginator?.pageSize ?? 3).then( (data: any) => {
-
-      console.log( 'data:', data.ds );
+    this.service.getClientePaginator(this.paginator?.pageIndex ?? 0, this.paginator?.pageSize ?? 2).then( (data: any) => {
 
       this.clientes = <Cliente[]>data.ds;
-      this.recordLength = data.qtdPag;
+      this.recordLength = data.qtdReg;
 
     });
 
@@ -216,7 +214,7 @@ export class ClientesComponent implements OnInit, AfterViewInit  {
 
     setTimeout(()=>{
       this.paginacao();
-    }, 300);
+    }, 200);
 
   };
 

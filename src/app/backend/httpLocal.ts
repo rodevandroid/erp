@@ -98,12 +98,11 @@ export class HttpLocal {
           {id: 7, pedido: '0008', cliente: 'Paulo Machado', vendedor: 'Rayssa Melo', valor: 88357.25, link: '', process: false, pix: '', qrcode: '', txid: ''},
         ];
 
-        let qtdePage = Math.round(this.dsCliente.length / limite);
-        let indice   = pageIndex * limite;
+        let indice = ( pageIndex * limite );
 
         resolve({
-          ds: this.dsCliente.slice(indice, limite),
-          qtdPag: (qtdePage * limite)
+          ds: this.dsCliente.slice(indice, indice > 0 ? (limite + indice) : limite ),
+          qtdReg: this.dsCliente.length
         });
 
       } catch (error) {
