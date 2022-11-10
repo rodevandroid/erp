@@ -1,6 +1,6 @@
 const getXmlData    = require('./get-xml-data');
-const postMaxiPago  = require('./service/post-maxi-pago');
-const xmlExtract    = require('./service/xml-extract');
+const postMaxiPago  = require('./post-maxi-pago');
+const xmlExtract    = require('./xml-extract');
 
 module.exports = function processaGetCob( req, res ) {
 
