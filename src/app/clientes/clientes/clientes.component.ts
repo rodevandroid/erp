@@ -186,14 +186,12 @@ export class ClientesComponent implements OnInit, AfterViewInit  {
 
       next: ( data: any ) => {
 
-        console.log( 'Resposta subscribe: ', data );
         this.clientes[objIndex].process = false;
         this.clientes[objIndex].pix     = data.location;
         this.clientes[objIndex].qrcode  = data.textoImagemQRcode;
         this.clientes[objIndex].txid  = data.txid;
       }, error: ( err ) => {
 
-        console.log( 'Erro no subscribe: ', err );
         this.clientes[objIndex].process = false;
 
       }
