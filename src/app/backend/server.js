@@ -7,10 +7,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 const postedXmlData = require('./service/post-xml-data');
-const getXmlData    = require('./service/get-xml-data');
 const xmlExtract    = require('./service/xml-extract');
 const postMaxiPago  = require('./service/post-maxi-pago');
 const processPix    = require('./service/process-pix');
+const processGetCob = require('./service/process-get-cob');
 
 const allowedOrigins = ['http://localhost:4200'];
 
@@ -48,25 +48,15 @@ app.post("/gerarLink", (req, res) => {
 
 app.post("/consultarLink", (req, res) => {
 
-  let cliente = req.body;
-  let getXml  = getXmlData(cliente?.link);
+  processGetCob( req, res ).then( resp => {
 
-  postMaxiPago( getXml ).then( resp => {
-
-    let statusText  = xmlExtract( resp.data, '<status>', '</status>');
-    let pedidoId    = xmlExtract( resp.data, '<referenceNum>', '</referenceNum>');
-
-    res.status(200).send({
-      statusText,
-      pedidoId
-    });
+    res.status(200).send( resp );
 
   }).catch( err => {
 
-    console.log( err );
     res.status(400).send(err);
 
-  });
+  })
 
 });
 
