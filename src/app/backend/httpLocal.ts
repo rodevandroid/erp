@@ -65,6 +65,15 @@ export class HttpLocal {
             {id: 5, pedido: '0006', cliente: 'Cassiano Ferreira', vendedor: 'Haira Carminati', valor: 660357.25, link: '', process: false, pix: '', qrcode: '', txid: ''},
             {id: 6, pedido: '0007', cliente: 'Rayssa Melo', vendedor: 'Paulo Machado', valor: 77357.25, link: '', process: false, pix: '', qrcode: '', txid: ''},
             {id: 7, pedido: '0008', cliente: 'Paulo Machado', vendedor: 'Rayssa Melo', valor: 88357.25, link: '', process: false, pix: '', qrcode: '', txid: ''},
+            {id: 8, pedido: '0009', cliente: 'Rodrigo Coutinho', vendedor: 'Eder Bolonha', valor: 150357.25, link: '', process: false, pix: '', qrcode: '', txid: ''},
+            {id: 9, pedido: '0010', cliente: 'Eder Bolonha', vendedor: 'Rodrigo Coutinho', valor: 220357.25, link: '', process: false, pix: '', qrcode: '', txid: ''},
+            {id: 10, pedido: '0011', cliente: 'Anderson Rocha', vendedor: 'Bruna Xavier', valor: 330357.25, link: '', process: false, pix: '', qrcode: '', txid: ''},
+            {id: 11, pedido: '0012', cliente: 'Bruna Xavier', vendedor: 'Anderson Rocha', valor: 440357.25, link: '', process: false, pix: '', qrcode: '', txid: ''},
+            {id: 12, pedido: '0013', cliente: 'Haira Carminati', vendedor: 'Cassiano Ferreira', valor: 550357.25, link: '', process: false, pix: '', qrcode: '', txid: ''},
+            {id: 13, pedido: '0014', cliente: 'Cassiano Ferreira', vendedor: 'Haira Carminati', valor: 660357.25, link: '', process: false, pix: '', qrcode: '', txid: ''},
+            {id: 14, pedido: '0015', cliente: 'Rayssa Melo', vendedor: 'Paulo Machado', valor: 77357.25, link: '', process: false, pix: '', qrcode: '', txid: ''},
+            {id: 15, pedido: '0016', cliente: 'Paulo Machado', vendedor: 'Rayssa Melo', valor: 88357.25, link: '', process: false, pix: '', qrcode: '', txid: ''},
+
           ].filter( item => item.id == id );
 
           resolve( <Cliente[]>this.dsCliente );
@@ -96,7 +105,15 @@ export class HttpLocal {
           {id: 5, pedido: '0006', cliente: 'Cassiano Ferreira', vendedor: 'Haira Carminati', valor: 660357.25, link: '', process: false, pix: '', qrcode: '', txid: ''},
           {id: 6, pedido: '0007', cliente: 'Rayssa Melo', vendedor: 'Paulo Machado', valor: 77357.25, link: '', process: false, pix: '', qrcode: '', txid: ''},
           {id: 7, pedido: '0008', cliente: 'Paulo Machado', vendedor: 'Rayssa Melo', valor: 88357.25, link: '', process: false, pix: '', qrcode: '', txid: ''},
-        ];
+          {id: 8, pedido: '0009', cliente: 'Rodrigo Coutinho', vendedor: 'Eder Bolonha', valor: 150357.25, link: '', process: false, pix: '', qrcode: '', txid: ''},
+          {id: 9, pedido: '0010', cliente: 'Eder Bolonha', vendedor: 'Rodrigo Coutinho', valor: 220357.25, link: '', process: false, pix: '', qrcode: '', txid: ''},
+          {id: 10, pedido: '0011', cliente: 'Anderson Rocha', vendedor: 'Bruna Xavier', valor: 330357.25, link: '', process: false, pix: '', qrcode: '', txid: ''},
+          {id: 11, pedido: '0012', cliente: 'Bruna Xavier', vendedor: 'Anderson Rocha', valor: 440357.25, link: '', process: false, pix: '', qrcode: '', txid: ''},
+          {id: 12, pedido: '0013', cliente: 'Haira Carminati', vendedor: 'Cassiano Ferreira', valor: 550357.25, link: '', process: false, pix: '', qrcode: '', txid: ''},
+          {id: 13, pedido: '0014', cliente: 'Cassiano Ferreira', vendedor: 'Haira Carminati', valor: 660357.25, link: '', process: false, pix: '', qrcode: '', txid: ''},
+          {id: 14, pedido: '0015', cliente: 'Rayssa Melo', vendedor: 'Paulo Machado', valor: 77357.25, link: '', process: false, pix: '', qrcode: '', txid: ''},
+          {id: 15, pedido: '0016', cliente: 'Paulo Machado', vendedor: 'Rayssa Melo', valor: 88357.25, link: '', process: false, pix: '', qrcode: '', txid: ''},
+      ];
 
         let indice = ( pageIndex * limite );
 
