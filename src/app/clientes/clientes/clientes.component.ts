@@ -1,8 +1,9 @@
+import { MatPaginator } from '@angular/material/paginator';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { first } from 'rxjs';
+import { first, tap } from 'rxjs';
 import { Cliente } from 'src/app/clientes/interface/cliente';
 import { ClienteService } from 'src/app/clientes/service/cliente.service';
 
@@ -12,11 +13,14 @@ import { ClienteService } from 'src/app/clientes/service/cliente.service';
   styleUrls: ['./clientes.component.scss']
 })
 
-export class ClientesComponent implements OnInit  {
+export class ClientesComponent implements OnInit, AfterViewInit  {
+
+  public paginator!: MatPaginator;
 
   public clientes: Cliente[]  = [];
   public cliente: Cliente     = <Cliente>{};
   public showTabela           = true;
+  public recordLength         = 0;
 
   private service: ClienteService;
 
@@ -38,13 +42,30 @@ export class ClientesComponent implements OnInit  {
 
   ngOnInit() {
 
-    this.service.getAllCliente().then( data => {
+    this.paginacao();
 
-      this.clientes = <Cliente[]>data;
+  };
+
+  private paginacao() {
+
+    this.service.getClientePaginator(this.paginator?.pageIndex ?? 0, this.paginator?.pageSize ?? 3).then( (data: any) => {
+
+      console.log( 'data:', data.ds );
+
+      this.clientes = <Cliente[]>data.ds;
+      this.recordLength = data.qtdPag;
 
     });
 
   };
+
+  ngAfterViewInit() {
+
+    this.paginator?.page.pipe(
+      tap(()=>this.paginacao())
+    ).subscribe();
+
+  }
 
   public setCliente( clienteFrm: any ): void {
 
@@ -187,6 +208,16 @@ export class ClientesComponent implements OnInit  {
     this._snackBar.open(`Pedido: ${data.pedidoId}  Status: ${data.statusText}`, 'Fechar', {
       duration: 3000
     });
+  };
+
+  public objMatPag( pagina: MatPaginator ) {
+
+    this.paginator = pagina;
+
+    setTimeout(()=>{
+      this.paginacao();
+    }, 300);
+
   };
 
 };

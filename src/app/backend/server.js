@@ -12,11 +12,9 @@ const port = 3000;
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-const options = {
+app.use(cors({
   origin: ['http://localhost:4200']
-};
-
-app.use(cors(options));
+}));
 
 app.post("/gerarLink", (req, res) => {
 

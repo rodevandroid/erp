@@ -1,7 +1,6 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { NgIf } from '@angular/common';
-import { Component, EventEmitter, Input, Output, ViewChild, OnInit } from '@angular/core';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { AfterViewInit, Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { Router } from '@angular/router';
 import { map, tap } from 'rxjs/operators';
@@ -13,16 +12,18 @@ import { Cliente } from 'src/app/clientes/interface/cliente';
   styleUrls: ['./tabela.component.scss']
 })
 
-export class TabelaComponent {
+export class TabelaComponent implements AfterViewInit{
 
-  @Output() linhaTabela     =  new EventEmitter<Cliente>();
-  @Output() geraLinkCob     =  new EventEmitter<Cliente>();
-  @Output() consultaLinkCob =  new EventEmitter<Cliente>();
-  @Output() pixCobranca     =  new EventEmitter<Cliente>();
+  @Output() linhaTabela     = new EventEmitter<Cliente>();
+  @Output() geraLinkCob     = new EventEmitter<Cliente>();
+  @Output() consultaLinkCob = new EventEmitter<Cliente>();
+  @Output() pixCobranca     = new EventEmitter<Cliente>();
+  @Output() paginacao       = new EventEmitter<MatPaginator>();
 
   @Input() dataSource: Cliente[] = [];
+  @Input() recordLength: number = 0;
 
-  @ViewChild(MatPaginator) paginator: MatPaginator = <MatPaginator>{};
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sortColumns: MatSort = <MatSort>{};
 
   public colunas:  string[]  = [];
@@ -48,6 +49,14 @@ export class TabelaComponent {
     );
 
   }
+
+  ngAfterViewInit(): void {
+
+    this.paginator.page.pipe(
+      tap( () => this.paginacao.emit( this.paginator ) )
+    ).subscribe();
+
+  };
 
   setLine( row: Cliente ) {
 

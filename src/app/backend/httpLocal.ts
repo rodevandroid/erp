@@ -1,3 +1,4 @@
+import { LiteralPrimitive } from '@angular/compiler';
 import { Cliente } from 'src/app/clientes/interface/cliente';
 
 export class HttpLocal {
@@ -69,6 +70,41 @@ export class HttpLocal {
           resolve( <Cliente[]>this.dsCliente );
 
         }, 0);
+
+      } catch (error) {
+
+        reject( error );
+
+      };
+
+    });
+
+  };
+
+  public getClientePaginator( pageIndex: number, limite: number ) {
+
+    return new Promise( (resolve, reject) => {
+
+      try {
+
+        this.dsCliente = [
+          {id: 0, pedido: '0001', cliente: 'Rodrigo Coutinho', vendedor: 'Eder Bolonha', valor: 150357.25, link: '', process: false, pix: '', qrcode: '', txid: ''},
+          {id: 1, pedido: '0002', cliente: 'Eder Bolonha', vendedor: 'Rodrigo Coutinho', valor: 220357.25, link: '', process: false, pix: '', qrcode: '', txid: ''},
+          {id: 2, pedido: '0003', cliente: 'Anderson Rocha', vendedor: 'Bruna Xavier', valor: 330357.25, link: '', process: false, pix: '', qrcode: '', txid: ''},
+          {id: 3, pedido: '0004', cliente: 'Bruna Xavier', vendedor: 'Anderson Rocha', valor: 440357.25, link: '', process: false, pix: '', qrcode: '', txid: ''},
+          {id: 4, pedido: '0005', cliente: 'Haira Carminati', vendedor: 'Cassiano Ferreira', valor: 550357.25, link: '', process: false, pix: '', qrcode: '', txid: ''},
+          {id: 5, pedido: '0006', cliente: 'Cassiano Ferreira', vendedor: 'Haira Carminati', valor: 660357.25, link: '', process: false, pix: '', qrcode: '', txid: ''},
+          {id: 6, pedido: '0007', cliente: 'Rayssa Melo', vendedor: 'Paulo Machado', valor: 77357.25, link: '', process: false, pix: '', qrcode: '', txid: ''},
+          {id: 7, pedido: '0008', cliente: 'Paulo Machado', vendedor: 'Rayssa Melo', valor: 88357.25, link: '', process: false, pix: '', qrcode: '', txid: ''},
+        ];
+
+        let qtdePage = Math.round(this.dsCliente.length / limite);
+        let indice   = pageIndex * limite;
+
+        resolve({
+          ds: this.dsCliente.slice(indice, limite),
+          qtdPag: (qtdePage * limite)
+        });
 
       } catch (error) {
 

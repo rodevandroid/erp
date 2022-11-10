@@ -13,11 +13,12 @@
 
 </div>
 
-<app-tabela *ngIf="showTabela" [dataSource]="clientes"
+<app-tabela *ngIf="showTabela" [dataSource]="clientes" [recordLength]="recordLength"
   (linhaTabela)     ="clickLinha($event)"
   (geraLinkCob)     ="gerarLink( $event )"
   (consultaLinkCob) ="consultarLink( $event )"
   (pixCobranca)     ="gerarPixCob( $event )"
+  (paginacao)       ="objMatPag($event)"
 
   > </app-tabela>
 

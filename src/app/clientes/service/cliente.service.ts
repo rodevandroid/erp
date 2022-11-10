@@ -28,4 +28,11 @@ export class ClienteService {
 
   };
 
+  public getClientePaginator( pageIndex: number, limite: number ) {
+
+    return this.httpLocal.getClientePaginator( pageIndex, limite );
+
+  };
+
+
 };
