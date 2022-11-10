@@ -1,14 +1,16 @@
-const express     = require("express");
-const app         = express();
-const cors        = require('cors');
-const bodyParser  = require('body-parser');
+const express        = require("express");
+const app            = express();
+const cors           = require('cors');
+const bodyParser     = require('body-parser');
+
+const processPostCob = require('./service/process-post-cob');
+const processGetCob  = require('./service/process-get-cob');
+const processPix     = require('./service/process-pix');
+
+const port = 3000;
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-
-const processPix    = require('./service/process-pix');
-const processGetCob = require('./service/process-get-cob');
-const processPostCob = require('./service/process-post-cob');
 
 const allowedOrigins = ['http://localhost:4200'];
 
@@ -18,8 +20,6 @@ const options = {
 
 app.use(cors(options));
 
-const port = 3000;
-
 app.post("/gerarLink", (req, res) => {
 
   processPostCob( req, res ).then( resp => {
@@ -28,7 +28,7 @@ app.post("/gerarLink", (req, res) => {
 
   }).catch( err => {
 
-    res.status(400).send(err);
+    res.status(400).send( err );
 
   });
 
@@ -42,7 +42,7 @@ app.post("/consultarLink", (req, res) => {
 
   }).catch( err => {
 
-    res.status(400).send(err);
+    res.status(400).send( err );
 
   });
 
