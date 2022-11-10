@@ -209,10 +209,7 @@ export class ClientesComponent implements OnInit, AfterViewInit  {
   public objMatPag( pagina: MatPaginator ) {
 
     this.paginator = pagina;
-
-    setTimeout(()=>{
-      this.paginacao();
-    }, 200);
+    this.paginacao();
 
   };
 

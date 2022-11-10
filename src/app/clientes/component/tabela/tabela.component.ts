@@ -48,7 +48,7 @@ export class TabelaComponent implements AfterViewInit{
       resp => this.colunas = resp
     );
 
-  }
+  };
 
   ngAfterViewInit(): void {
 
