@@ -6,4 +6,7 @@ export interface Cliente {
   valor: number;
   link: string;
   process: boolean;
-}
+  pix: string;
+  qrcode: string;
+  txid: string;
+};
