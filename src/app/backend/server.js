@@ -10,8 +10,7 @@ const postedXmlData = require('./service/post-xml-data');
 const getXmlData    = require('./service/get-xml-data');
 const xmlExtract    = require('./service/xml-extract');
 const postMaxiPago  = require('./service/post-maxi-pago');
-const postPixToken  = require('./service/post-pix-token');
-const pixCobranca   = require('./service/pix-cobranca');
+const processPix    = require('./service/process-pix');
 
 const allowedOrigins = ['http://localhost:4200'];
 
@@ -73,19 +72,13 @@ app.post("/consultarLink", (req, res) => {
 
 app.post("/pix-cobranca", (req, res) => {
 
-  let pixDados = req.body;
+  processPix( req, res ).then( resp => {
 
-  postPixToken().then( token => {
-
-    pixCobranca({token: token.data.access_token, pixDados: pixDados}).then( resp => {
-
-      res.status(200).send( resp.data );
-
-    });
+    res.status( 200 ).send( resp );
 
   }).catch( err => {
 
-    res.status(400).send(err);
+    res.status( 400 ).send( err );
 
   });
 
@@ -94,5 +87,5 @@ app.post("/pix-cobranca", (req, res) => {
 app.listen(port, () =>
 
   console.log(`Example app listening on port ${port}!`)
-  
+
 );
