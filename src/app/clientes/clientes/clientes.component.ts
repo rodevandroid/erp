@@ -26,6 +26,8 @@ export class ClientesComponent implements OnInit  {
     vendedor: new FormControl('', [Validators.minLength(5), Validators.required]),
     valor   : new FormControl(0.0, [Validators.minLength(5), Validators.required]),
     link    : new FormControl(''),
+    pix     : new FormControl(''),
+    qrcode  : new FormControl(''),
   });
 
   constructor(private http: HttpClient, private _snackBar: MatSnackBar) {
@@ -60,7 +62,9 @@ export class ClientesComponent implements OnInit  {
       cliente: '',
       vendedor: '',
       valor: 0.0,
-      link: ''
+      link: '',
+      pix: '',
+      qrcode: ''
     });
 
     this.showTabela = !this.showTabela;
@@ -147,6 +151,37 @@ export class ClientesComponent implements OnInit  {
     });
 
   };
+
+  public gerarPixCob( cliente: Cliente): void {
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json'
+      })
+    };
+
+    const objIndex = this.clientes.findIndex(( obj => obj.pedido == cliente.pedido ));
+    this.clientes[objIndex].process = true;
+
+    this.http.post<Cliente>('http://localhost:3000/pix-cobranca', cliente, httpOptions ).pipe(first()).subscribe({
+
+      next: ( data: any ) => {
+
+        console.log( 'Resposta subscribe: ', data );
+        this.clientes[objIndex].process = false;
+        this.clientes[objIndex].pix     = data.location;
+        this.clientes[objIndex].qrcode  = data.textoImagemQRcode;
+        this.clientes[objIndex].txid  = data.txid;
+      }, error: ( err ) => {
+
+        console.log( 'Erro no subscribe: ', err );
+        this.clientes[objIndex].process = false;
+
+      }
+
+    });
+
+  }
 
   private openSnackBar( data: any ) {
     this._snackBar.open(`Pedido: ${data.pedidoId}  Status: ${data.statusText}`, 'Fechar', {

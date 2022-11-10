@@ -19,6 +19,8 @@ import { ClientesComponent } from './clientes/clientes.component';
 import { FormularioComponent } from './component/formulario/formulario.component';
 import { TabelaComponent } from './component/tabela/tabela.component';
 
+import { QRCodeModule } from 'angularx-qrcode';
+
 @NgModule({
   declarations: [
     ClientesComponent,
@@ -39,7 +41,8 @@ import { TabelaComponent } from './component/tabela/tabela.component';
     MatPaginatorModule,
     MatSortModule,
     MatProgressSpinnerModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    QRCodeModule
   ]
 })
 

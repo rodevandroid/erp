@@ -13,6 +13,12 @@
 
 </div>
 
-<app-tabela *ngIf="showTabela" [dataSource]="clientes" (linhaTabela)="clickLinha($event)" (geraLinkCob)="gerarLink( $event )" (consultaLinkCob)="consultarLink( $event )"> </app-tabela>
+<app-tabela *ngIf="showTabela" [dataSource]="clientes"
+  (linhaTabela)     ="clickLinha($event)"
+  (geraLinkCob)     ="gerarLink( $event )"
+  (consultaLinkCob) ="consultarLink( $event )"
+  (pixCobranca)     ="gerarPixCob( $event )"
+
+  > </app-tabela>
 
 <app-formulario [formulario]="clienteForm" *ngIf="!showTabela" (clienteFrm)="setCliente($event)"></app-formulario>
