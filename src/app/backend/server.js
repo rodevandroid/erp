@@ -12,10 +12,8 @@ const port = 3000;
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-const allowedOrigins = ['http://localhost:4200'];
-
 const options = {
-  origin: allowedOrigins
+  origin: ['http://localhost:4200']
 };
 
 app.use(cors(options));
