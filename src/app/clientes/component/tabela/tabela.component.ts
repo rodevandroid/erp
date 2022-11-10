@@ -1,9 +1,10 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { NgIf } from '@angular/common';
+import { Component, EventEmitter, Input, Output, ViewChild, OnInit } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { Router } from '@angular/router';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { Cliente } from 'src/app/clientes/interface/cliente';
 
 @Component({
@@ -12,11 +13,12 @@ import { Cliente } from 'src/app/clientes/interface/cliente';
   styleUrls: ['./tabela.component.scss']
 })
 
-export class TabelaComponent  {
+export class TabelaComponent {
 
   @Output() linhaTabela     =  new EventEmitter<Cliente>();
   @Output() geraLinkCob     =  new EventEmitter<Cliente>();
   @Output() consultaLinkCob =  new EventEmitter<Cliente>();
+  @Output() pixCobranca     =  new EventEmitter<Cliente>();
 
   @Input() dataSource: Cliente[] = [];
 
@@ -24,10 +26,6 @@ export class TabelaComponent  {
   @ViewChild(MatSort) sortColumns: MatSort = <MatSort>{};
 
   public colunas:  string[]  = [];
-
-  public page = 1;
-  public limit = 10;
-  public itens: number[] = [20, 40, 60];
 
   private displayedColumns = this.breakpointObserver.observe(Breakpoints.Tablet).pipe(
 
@@ -37,7 +35,7 @@ export class TabelaComponent  {
         return [ 'pedido', 'cliente', 'vendedor', 'valor', 'action'];
       }
 
-      return ['pedido', 'cliente', 'vendedor', 'valor', 'link', 'action'];
+      return ['pedido', 'cliente', 'vendedor', 'valor', 'link', 'qrcode', 'pix', 'txid', 'action'];
 
     })
 
@@ -49,7 +47,7 @@ export class TabelaComponent  {
       resp => this.colunas = resp
     );
 
-  };
+  }
 
   setLine( row: Cliente ) {
 
@@ -69,10 +67,9 @@ export class TabelaComponent  {
 
   };
 
-  onChangePage($event: PageEvent) {
+  geraPixCobranca( cliente: Cliente ) {
 
-    this.limit = $event.pageSize;
-    this.page  = $event.pageIndex + 1;
+    this.pixCobranca.emit( cliente );
 
   };
 

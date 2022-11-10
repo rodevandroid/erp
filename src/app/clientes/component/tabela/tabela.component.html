@@ -1,5 +1,5 @@
 
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8" >
 
   <ng-container matColumnDef="pedido">
     <th mat-header-cell *matHeaderCellDef> Pedido </th>
@@ -26,7 +26,35 @@
     <td mat-cell *matCellDef="let cliente">
       <div style="display: flex; justify-content: start;">
         <span> {{cliente.link }} </span>
-        <mat-spinner *ngIf="cliente.process" [diameter]="15"></mat-spinner>
+      </div>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="qrcode">
+    <th mat-header-cell *matHeaderCellDef> QRCode</th>
+    <td mat-cell *matCellDef="let cliente">
+      <div style="display: flex; justify-content: start;">
+        <span>
+          <qrcode [qrdata]="'{{cliente.qrcode}}'" *ngIf="cliente.qrcode"  [width]="50" [errorCorrectionLevel]="'M'"></qrcode>
+        </span>
+      </div>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="pix">
+    <th mat-header-cell *matHeaderCellDef> Link PIX</th>
+    <td mat-cell *matCellDef="let cliente">
+      <div style="display: flex; justify-content: start;">
+        <span> {{cliente.pix }} </span>
+      </div>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="txid">
+    <th mat-header-cell *matHeaderCellDef> TXID</th>
+    <td mat-cell *matCellDef="let cliente">
+      <div style="display: flex; justify-content: start;">
+        <span> {{cliente.txid }} </span>
       </div>
     </td>
   </ng-container>
@@ -36,16 +64,20 @@
     <td mat-cell *matCellDef="let cliente">
 
       <button mat-icon-button color="primary" aria-label="icone gerar link cobrança" matTooltip="Gerar link">
-        <mat-icon (click)="gerarLink( cliente )" >
-          publish
-        </mat-icon>
+        <mat-icon (click)="gerarLink( cliente )" >publish</mat-icon>
       </button>
 
       <button mat-icon-button color="primary" aria-label="icone gerar link cobrança" matTooltip="Consultar link">
           <mat-icon (click)="consultarLink( cliente )">add_link</mat-icon>
       </button>
 
-    </td>
+      <button mat-icon-button color="primary" aria-label="icone gerar link cobrança" matTooltip="Pix Cobrança link">
+        <mat-icon (click)="geraPixCobranca( cliente )">contacts</mat-icon>
+    </button>
+    <button mat-icon-button>
+      <mat-spinner *ngIf="cliente.process" [diameter]="15"></mat-spinner>
+    </button>
+  </td>
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="colunas"></tr>
@@ -53,4 +85,4 @@
 
 </table>
 
-<mat-paginator [pageSizeOptions]="itens" showFirstLastButtons (page)="onChangePage($event)" aria-label="Selecionar página de elementos periódicos"></mat-paginator>
+<mat-paginator [length]="dataSource.length" [pageSizeOptions]="[2,4,6,8]" [pageIndex]="0" pageSize="3" showFirstLastButtons  aria-label="Selecionar página de elementos periódicos"></mat-paginator>
