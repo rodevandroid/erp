@@ -5,7 +5,7 @@ import { MatSort } from '@angular/material/sort';
 import { Router } from '@angular/router';
 import { map, tap } from 'rxjs/operators';
 import { Cliente } from 'src/app/clientes/interface/cliente';
-
+import {Sort} from '@angular/material/sort';
 @Component({
   selector: 'app-tabela',
   templateUrl: './tabela.component.html',
@@ -80,6 +80,32 @@ export class TabelaComponent implements AfterViewInit{
 
     this.pixCobranca.emit( cliente );
 
+  };
+
+  sortData(sort: Sort) {
+
+    let sortedData = [];
+    const data = this.dataSource.slice();
+
+    if (!sort.active || sort.direction === '') {
+      sortedData = data;
+      return;
+    };
+
+    sortedData = <Cliente[]>data.sort((a: any, b: any) => {
+
+      const isAsc = sort.direction === 'asc';
+
+      return sort.active ? this.compare(a[sort.active], b[sort.active], isAsc) : 0;
+
+    });
+
+    this.dataSource = sortedData;
+
+  };
+
+  private compare(a: number | string, b: number | string, isAsc: boolean) {
+    return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
   };
 
 };
