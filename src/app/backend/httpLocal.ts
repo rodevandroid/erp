@@ -1,4 +1,3 @@
-import { LiteralPrimitive } from '@angular/compiler';
 import { Cliente } from 'src/app/clientes/interface/cliente';
 
 export class HttpLocal {
