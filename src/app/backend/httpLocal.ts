@@ -72,8 +72,7 @@ export class HttpLocal {
             {id: 12, pedido: '0013', cliente: 'Haira Carminati', vendedor: 'Cassiano Ferreira', valor: 550357.25, link: '', process: false, pix: '', qrcode: '', txid: ''},
             {id: 13, pedido: '0014', cliente: 'Cassiano Ferreira', vendedor: 'Haira Carminati', valor: 660357.25, link: '', process: false, pix: '', qrcode: '', txid: ''},
             {id: 14, pedido: '0015', cliente: 'Rayssa Melo', vendedor: 'Paulo Machado', valor: 77357.25, link: '', process: false, pix: '', qrcode: '', txid: ''},
-            {id: 15, pedido: '0016', cliente: 'Paulo Machado', vendedor: 'Rayssa Melo', valor: 88357.25, link: '', process: false, pix: '', qrcode: '', txid: ''},
-
+            {id: 15, pedido: '0016', cliente: 'Paulo Machado', vendedor: 'Rayssa Melo', valor: 88357.25, link: '', process: false, pix: '', qrcode: '', txid: ''}
           ].filter( item => item.id == id );
 
           resolve( <Cliente[]>this.dsCliente );
@@ -112,8 +111,8 @@ export class HttpLocal {
           {id: 12, pedido: '0013', cliente: 'Haira Carminati', vendedor: 'Cassiano Ferreira', valor: 550357.25, link: '', process: false, pix: '', qrcode: '', txid: ''},
           {id: 13, pedido: '0014', cliente: 'Cassiano Ferreira', vendedor: 'Haira Carminati', valor: 660357.25, link: '', process: false, pix: '', qrcode: '', txid: ''},
           {id: 14, pedido: '0015', cliente: 'Rayssa Melo', vendedor: 'Paulo Machado', valor: 77357.25, link: '', process: false, pix: '', qrcode: '', txid: ''},
-          {id: 15, pedido: '0016', cliente: 'Paulo Machado', vendedor: 'Rayssa Melo', valor: 88357.25, link: '', process: false, pix: '', qrcode: '', txid: ''},
-      ];
+          {id: 15, pedido: '0016', cliente: 'Paulo Machado', vendedor: 'Rayssa Melo', valor: 88357.25, link: '', process: false, pix: '', qrcode: '', txid: ''}
+        ];
 
         let indice = ( pageIndex * limite );
 

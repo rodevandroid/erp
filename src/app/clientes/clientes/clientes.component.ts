@@ -63,7 +63,7 @@ export class ClientesComponent implements OnInit, AfterViewInit  {
       tap(()=>this.paginacao())
     ).subscribe();
 
-  }
+  };
 
   public setCliente( clienteFrm: any ): void {
 
@@ -173,6 +173,11 @@ export class ClientesComponent implements OnInit, AfterViewInit  {
 
   public gerarPixCob( cliente: Cliente): void {
 
+    if ( cliente.qrcode ){
+      this.openSnackBar( {pedidoId: cliente.pedido, statusText: 'PIX existente: ' + cliente.txid} );
+      return;
+    };
+
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json'
@@ -198,7 +203,7 @@ export class ClientesComponent implements OnInit, AfterViewInit  {
 
     });
 
-  }
+  };
 
   private openSnackBar( data: any ) {
     this._snackBar.open(`Pedido: ${data.pedidoId}  Status: ${data.statusText}`, 'Fechar', {
