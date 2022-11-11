@@ -44,9 +44,16 @@
 
     </mat-form-field>
 
+    <mat-form-field  fxFlex="98" appearance="fill">
+
+      <mat-label for="last-name">Link PIX: </mat-label>
+      <input matInput id="cliente-link-pix" type="text" formControlName="pix">
+
+    </mat-form-field>
+
     <div fxLayoutAlign="end" fxFlexFill>
 
-      <button mat-stroked-button color="primary" (click)="onSubmit()">
+      <button mat-stroked-button color="primary" (click)="onSubmit()" style="margin-right: 32px;">
         <mat-icon aria-hidden="false" aria-label="Icone add botao gravar" fontIcon="add"></mat-icon>Gravar
       </button>
 

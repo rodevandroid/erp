@@ -95,7 +95,6 @@ export class ClientesComponent implements OnInit, AfterViewInit  {
   public clickLinha( row: any) {
 
     this.clienteForm.patchValue( row );
-
     this.showTabela = !this.showTabela;
 
   };
