@@ -1,6 +1,6 @@
 <div class="form-cliente">
 
-  <form [formGroup]="formulario" fxLayout="row wrap" fxLayout.md="column wrap" fxLayout.sm="column wrap" fxLayout.xs="column wrap" fxLayoutGap="10px">
+  <form [formGroup]="formulario" fxLayout="row wrap" fxLayout.md="column wrap" fxLayout.sm="column wrap" fxLayout.xs="column wrap" fxLayoutGap="7px">
 
     <mat-form-field fxFlex="9" appearance="fill">
 
@@ -44,14 +44,14 @@
 
     </mat-form-field>
 
+    <div fxLayoutAlign="end" fxFlexFill>
+
+      <button mat-stroked-button color="primary" (click)="onSubmit()">
+        <mat-icon aria-hidden="false" aria-label="Icone add botao gravar" fontIcon="add"></mat-icon>Gravar
+      </button>
+
+    </div>
+
   </form>
-
-  <div class="btn-gravar-cliente">
-
-    <button mat-stroked-button color="primary" (click)="onSubmit()">
-      <mat-icon aria-hidden="false" aria-label="Icone add botao gravar" fontIcon="add"></mat-icon>Gravar
-    </button>
-
-  </div>
 
 </div>
