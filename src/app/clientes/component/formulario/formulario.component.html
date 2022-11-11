@@ -1,69 +1,57 @@
-  <div class="form-cliente">
+<div class="form-cliente">
 
-  <form [formGroup]="formulario">
+  <form [formGroup]="formulario" fxLayout="row wrap" fxLayout.md="column wrap" fxLayout.sm="column wrap" fxLayout.xs="column wrap" fxLayoutGap="10px">
 
-    <table>
+    <mat-form-field fxFlex="9" appearance="fill">
 
-      <tr>
+      <mat-label for="first-name">Pedido: </mat-label>
+      <input matInput id="cliente-pedido" type="text" formControlName="pedido">
 
-        <td>
-          <mat-form-field class="example-form-field" appearance="fill">
+    </mat-form-field>
 
-            <mat-label for="first-name">Pedido: </mat-label>
-            <input matInput  id="cliente-pedido" type="text" formControlName="pedido">
+    <mat-form-field fxFlex="39" appearance="fill">
 
-          </mat-form-field>
-        </td>
+      <mat-label for="last-name">Cliente: </mat-label>
+      <input matInput id="cliente-clinte" type="text" formControlName="cliente">
 
-        <td>
-          <mat-form-field class="example-form-field" appearance="fill">
+    </mat-form-field>
 
-            <mat-label for="last-name">Cliente: </mat-label>
-            <input matInput  id="cliente-clinte" type="text" formControlName="cliente">
+    <mat-form-field fxFlex="39" appearance="fill">
 
-          </mat-form-field>
-        </td>
+      <mat-label for="last-name">Vendedor: </mat-label>
+      <input matInput id="cliente-vendedor" type="text" formControlName="vendedor">
 
-        <td>
-          <mat-form-field class="example-form-field" appearance="fill">
+    </mat-form-field>
 
-            <mat-label for="last-name">Vendedor: </mat-label>
-            <input matInput  id="cliente-vendedor" type="text" formControlName="vendedor">
+    <mat-form-field fxFlex="9" appearance="fill">
 
-          </mat-form-field>
-        </td>
+      <mat-label for="last-name">Valor: </mat-label>
+      <input matInput id="cliente-valor" type="text" formControlName="valor">
 
-        <td>
-          <mat-form-field class="example-form-field" appearance="fill">
+    </mat-form-field>
 
-            <mat-label for="last-name">Valor: </mat-label>
-            <input matInput  id="cliente-valor" type="text" formControlName="valor">
+    <mat-form-field fxFlex="48.5" appearance="fill">
 
-          </mat-form-field>
-        </td>
+      <mat-label for="last-name">Link: </mat-label>
+      <input matInput id="cliente-link" type="text" formControlName="link">
 
-        <td>
-          <mat-form-field class="example-form-field" appearance="fill">
+    </mat-form-field>
 
-            <mat-label for="last-name">Link: </mat-label>
-            <input matInput  id="cliente-link" type="text" formControlName="link">
+    <mat-form-field fxFlex="48.5" appearance="fill">
 
-          </mat-form-field>
-        </td>
+      <mat-label for="last-name">TXID: </mat-label>
+      <input matInput id="cliente-txid" type="text" formControlName="txid">
 
-      </tr>
-
-    </table>
-
-    <div class="btn-gravar-cliente">
-
-      <button mat-stroked-button color="primary" (click)="onSubmit()">
-        <mat-icon aria-hidden="false" aria-label="Icone add botao gravar" fontIcon="add"></mat-icon>Gravar
-      </button>
-
-    </div>
+    </mat-form-field>
 
   </form>
 
-</div>
+  <div class="btn-gravar-cliente">
 
+    <button mat-stroked-button color="primary" (click)="onSubmit()">
+      <mat-icon aria-hidden="false" aria-label="Icone add botao gravar" fontIcon="add"></mat-icon>Gravar
+    </button>
+
+  </div>
+
+</div>

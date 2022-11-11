@@ -1,11 +1,11 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { AfterViewInit, Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
+import { MatSort, Sort } from '@angular/material/sort';
 import { Router } from '@angular/router';
 import { map, tap } from 'rxjs/operators';
 import { Cliente } from 'src/app/clientes/interface/cliente';
-import {Sort} from '@angular/material/sort';
+
 @Component({
   selector: 'app-tabela',
   templateUrl: './tabela.component.html',

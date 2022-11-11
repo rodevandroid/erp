@@ -1,7 +1,7 @@
-import { MatPaginator } from '@angular/material/paginator';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { first, tap } from 'rxjs';
 import { Cliente } from 'src/app/clientes/interface/cliente';
@@ -32,6 +32,7 @@ export class ClientesComponent implements OnInit, AfterViewInit  {
     link    : new FormControl(''),
     pix     : new FormControl(''),
     qrcode  : new FormControl(''),
+    txid    : new FormControl(''),
   });
 
   constructor(private http: HttpClient, private _snackBar: MatSnackBar) {
@@ -83,7 +84,8 @@ export class ClientesComponent implements OnInit, AfterViewInit  {
       valor: 0.0,
       link: '',
       pix: '',
-      qrcode: ''
+      qrcode: '',
+      txid: ''
     });
 
     this.showTabela = !this.showTabela;
@@ -126,7 +128,7 @@ export class ClientesComponent implements OnInit, AfterViewInit  {
 
       }, error: ( err ) => {
 
-        console.log( 'Erro no subscribe: ', err );
+        console.log( 'Erro no subscribe gerar link: ', err );
         this.clientes[objIndex].process = false;
 
       }
@@ -139,7 +141,7 @@ export class ClientesComponent implements OnInit, AfterViewInit  {
 
     if ( !cliente.link ){
       this.openSnackBar( {pedidoId: cliente.pedido, statusText: 'Linke nao encontrado'} );
-      return
+      return;
     };
 
     const httpOptions = {
@@ -155,14 +157,13 @@ export class ClientesComponent implements OnInit, AfterViewInit  {
 
       next: ( data: any ) => {
 
-        console.log( 'Resposta subscribe: ', data );
         this.clientes[objIndex].process = false;
 
         this.openSnackBar( data );
 
       }, error: ( err ) => {
 
-        console.log( 'Erro no subscribe: ', err );
+        console.log( 'Erro no subscribe consulta link: ', err );
         this.clientes[objIndex].process = false;
 
       }
@@ -192,11 +193,13 @@ export class ClientesComponent implements OnInit, AfterViewInit  {
       next: ( data: any ) => {
 
         this.clientes[objIndex].process = false;
-        this.clientes[objIndex].pix     = data.location;
-        this.clientes[objIndex].qrcode  = data.textoImagemQRcode;
-        this.clientes[objIndex].txid  = data.txid;
+        this.clientes[objIndex].pix = data.location;
+        this.clientes[objIndex].qrcode = data.textoImagemQRcode;
+        this.clientes[objIndex].txid = data.txid;
+
       }, error: ( err ) => {
 
+        console.log( 'Erro no subscribe gerar pix cobranca: ', err );
         this.clientes[objIndex].process = false;
 
       }
