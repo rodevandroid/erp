@@ -22,9 +22,9 @@ export class ClienteService {
 
   };
 
-  public getClienteById( id: number ) {
+  public getClienteById( pedido: string ) {
 
-    return this.httpLocal.getClienteById( id );
+    return this.httpLocal.getClienteById( pedido );
 
   };
 

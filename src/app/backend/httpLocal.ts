@@ -86,7 +86,7 @@ export class HttpLocal {
 
   };
 
-  public getClienteById( id: number ) {
+  public getClienteById( pedido: string ) {
 
     return new Promise( (resolve, reject) => {
 
@@ -95,7 +95,8 @@ export class HttpLocal {
         setTimeout( () => {
 
           this.dsCliente = [
-            {id: 0, pedido: '0001', cliente: 'Rodrigo Coutinho', vendedor: 'Eder Bolonha', valor: 150357.25, link: '', process: false, pix: '', qrcode: '', txid: ''},
+            {id: -1, pedido: '0001', cliente: 'Eder Bolonha', vendedor: 'Rodrigo Coutinho', valor: 150357.25, link: 'link://eder.bolonha/linkando', process: false, pix: '', qrcode: '', txid: ''},
+            {id: 0, pedido: '0001', cliente: 'Rodrigo Coutinho', vendedor: 'Eder Bolonha', valor: 150357.25, link: 'link://rodrigo.coutinho/rcca', process: false, pix: '', qrcode: '', txid: ''},
             {id: 1, pedido: '0002', cliente: 'Eder Bolonha', vendedor: 'Rodrigo Coutinho', valor: 220357.25, link: '', process: false, pix: '', qrcode: '', txid: ''},
             {id: 2, pedido: '0003', cliente: 'Anderson Rocha', vendedor: 'Bruna Xavier', valor: 330357.25, link: '', process: false, pix: '', qrcode: '', txid: ''},
             {id: 3, pedido: '0004', cliente: 'Bruna Xavier', vendedor: 'Anderson Rocha', valor: 440357.25, link: '', process: false, pix: '', qrcode: '', txid: ''},
@@ -142,7 +143,7 @@ export class HttpLocal {
             {id: 44, pedido: '0045', cliente: 'Cassiano Ferreira', vendedor: 'Haira Carminati', valor: 660357.25, link: '', process: false, pix: '', qrcode: '', txid: ''},
             {id: 45, pedido: '0046', cliente: 'Rayssa Melo', vendedor: 'Paulo Machado', valor: 77357.25, link: '', process: false, pix: '', qrcode: '', txid: ''},
             {id: 46, pedido: '0047', cliente: 'Paulo Machado', vendedor: 'Rayssa Melo', valor: 88357.25, link: '', process: false, pix: '', qrcode: '', txid: ''},
-          ].filter( item => item.id == id );
+          ].filter( item => item.pedido == pedido );
 
           resolve( <Cliente[]>this.dsCliente );
 

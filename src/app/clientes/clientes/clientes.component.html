@@ -13,7 +13,7 @@
 
 </div>
 
-<app-tabela *ngIf="showTabela" [dataSource]="clientes" [recordLength]="recordLength"
+<app-tabela fxFlexFill *ngIf="showTabela" [dataSource]="clientes" [recordLength]="recordLength"
   (linhaTabela)     ="clickLinha($event)"
   (geraLinkCob)     ="gerarLink( $event )"
   (consultaLinkCob) ="consultarLink( $event )"
@@ -22,4 +22,4 @@
 
   > </app-tabela>
 
-<app-formulario [formulario]="clienteForm" *ngIf="!showTabela" (clienteFrm)="setCliente($event)"></app-formulario>
+<app-formulario [formulario]="clienteForm" *ngIf="!showTabela" (clienteFrm)="setCliente($event)" (clienteEmit)="emitCliente($event)"></app-formulario>

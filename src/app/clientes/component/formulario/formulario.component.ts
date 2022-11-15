@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, OnChanges } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Cliente } from 'src/app/clientes/interface/cliente';
 
@@ -8,24 +8,35 @@ import { Cliente } from 'src/app/clientes/interface/cliente';
   styleUrls: ['./formulario.component.scss']
 })
 
-export class FormularioComponent implements OnInit {
+export class FormularioComponent implements OnChanges {
 
   @Input() formulario: FormGroup = <FormGroup>{};
   @Output() clienteFrm: EventEmitter<any> = new EventEmitter();
+  @Output() clienteEmit: EventEmitter<Cliente> = new EventEmitter();
+
+  public cliente: Cliente = <Cliente>{};
 
   constructor() { };
 
-  ngOnInit(): void {
+  ngOnChanges(): void {
+
+    this.cliente = <Cliente>this.formulario.value;
 
   };
 
-  onSubmit() {
+  onSubmit(): void {
 
     if ( this.formulario.valid && this.formulario.valueChanges) {
 
       this.clienteFrm.emit( <Cliente>this.formulario.value );
 
     };
+
+  };
+
+  emiteCliente( cliente: Cliente): void {
+
+    this.clienteEmit.emit( cliente );
 
   };
 

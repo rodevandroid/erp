@@ -99,6 +99,12 @@ export class ClientesComponent implements OnInit, AfterViewInit  {
 
   };
 
+  public emitCliente( cliente: Cliente ){
+
+    this.clienteForm.patchValue( cliente );
+
+  };
+
   public gerarLink( cliente: Cliente): void {
 
     if ( cliente.link ){

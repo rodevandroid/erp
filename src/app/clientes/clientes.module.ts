@@ -13,19 +13,22 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
+import { MatTabsModule } from '@angular/material/tabs';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { QRCodeModule } from 'angularx-qrcode';
 
 import { ClientesRoutingModule } from './clientes-routing.module';
 import { ClientesComponent } from './clientes/clientes.component';
 import { FormularioComponent } from './component/formulario/formulario.component';
+import { TabelaPedidoComponent } from './component/tabela-pedido/tabela-pedido.component';
 import { TabelaComponent } from './component/tabela/tabela.component';
+import { QRCodeModule } from 'angularx-qrcode';
 
 @NgModule({
   declarations: [
     ClientesComponent,
     TabelaComponent,
-    FormularioComponent
+    FormularioComponent,
+    TabelaPedidoComponent,
   ], imports: [
     CommonModule,
     ClientesRoutingModule,
@@ -42,8 +45,9 @@ import { TabelaComponent } from './component/tabela/tabela.component';
     MatSortModule,
     MatProgressSpinnerModule,
     MatSnackBarModule,
+    FlexLayoutModule,
+    MatTabsModule,
     QRCodeModule,
-    FlexLayoutModule
   ]
 })
 
