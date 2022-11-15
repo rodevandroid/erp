@@ -56,7 +56,8 @@ export class TabelaPedidoComponent implements OnChanges {
 
   selecionaCliente( cliente: Cliente ): void {
 
-    this.clienteData.emit( cliente )
+    this.clienteData.emit( cliente );
+    
   };
 
   sortData(sort: Sort): void {

@@ -68,7 +68,7 @@
     </mat-tab>
 
     <mat-tab label="Lista de Clientes">
-      <app-tabela-pedido></app-tabela-pedido>
+      <app-tabela-pedido [cliente]="cliente" (clienteData)="emiteCliente( $event )"></app-tabela-pedido>
     </mat-tab>
 
   </mat-tab-group>

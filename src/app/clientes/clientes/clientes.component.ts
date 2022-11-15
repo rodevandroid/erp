@@ -49,7 +49,7 @@ export class ClientesComponent implements OnInit, AfterViewInit  {
 
   private paginacao() {
 
-    this.service.getClientePaginator(this.paginator?.pageIndex ?? 0, this.paginator?.pageSize ?? 2).then( (data: any) => {
+    this.service.getClientePaginator(this.paginator?.pageIndex ?? 0, this.paginator?.pageSize ?? 8).then( (data: any) => {
 
       this.clientes = <Cliente[]>data.ds;
       this.recordLength = data.qtdReg;
