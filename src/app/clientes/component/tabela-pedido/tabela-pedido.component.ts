@@ -18,7 +18,7 @@ export class TabelaPedidoComponent implements OnChanges {
   @Output() clienteData = new EventEmitter<Cliente>();
 
   public dataSource: Cliente[] = [];
-  public colunas:  string[]  = [];
+  public colunas: string[]  = [];
 
   constructor(private service: ClienteService, private breakpointObserver: BreakpointObserver) {
 
@@ -57,7 +57,7 @@ export class TabelaPedidoComponent implements OnChanges {
   selecionaCliente( cliente: Cliente ): void {
 
     this.clienteData.emit( cliente );
-    
+
   };
 
   sortData(sort: Sort): void {

@@ -19,7 +19,6 @@
   (consultaLinkCob) ="consultarLink( $event )"
   (pixCobranca)     ="gerarPixCob( $event )"
   (paginacao)       ="objMatPag($event)"
-
   > </app-tabela>
 
 <app-formulario [formulario]="clienteForm" *ngIf="!showTabela" (clienteFrm)="setCliente($event)" (clienteEmit)="emitCliente($event)"></app-formulario>

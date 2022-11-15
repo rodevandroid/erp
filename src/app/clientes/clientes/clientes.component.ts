@@ -13,7 +13,7 @@ import { ClienteService } from 'src/app/clientes/service/cliente.service';
   styleUrls: ['./clientes.component.scss']
 })
 
-export class ClientesComponent implements OnInit, AfterViewInit  {
+export class ClientesComponent implements OnInit, AfterViewInit {
 
   public paginator!: MatPaginator;
 
@@ -24,10 +24,16 @@ export class ClientesComponent implements OnInit, AfterViewInit  {
 
   private service: ClienteService;
 
+  private httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type':  'application/json'
+    })
+  };
+
   clienteForm = new FormGroup({
-    pedido  : new FormControl('', Validators.required),
-    cliente : new FormControl('', [Validators.minLength(5), Validators.required]),
-    vendedor: new FormControl('', [Validators.minLength(5), Validators.required]),
+    pedido  : new FormControl('',  Validators.required),
+    cliente : new FormControl('',  [Validators.minLength(5), Validators.required]),
+    vendedor: new FormControl('',  [Validators.minLength(5), Validators.required]),
     valor   : new FormControl(0.0, [Validators.minLength(5), Validators.required]),
     link    : new FormControl(''),
     pix     : new FormControl(''),
@@ -35,19 +41,19 @@ export class ClientesComponent implements OnInit, AfterViewInit  {
     txid    : new FormControl(''),
   });
 
-  constructor(private http: HttpClient, private _snackBar: MatSnackBar) {
+  constructor( private http: HttpClient, private _snackBar: MatSnackBar ) {
 
     this.service = new ClienteService();
 
   };
 
-  ngOnInit() {
+  ngOnInit(): void {
 
     this.paginacao();
 
   };
 
-  private paginacao() {
+  private paginacao(): void {
 
     this.service.getClientePaginator(this.paginator?.pageIndex ?? 0, this.paginator?.pageSize ?? 8).then( (data: any) => {
 
@@ -58,7 +64,7 @@ export class ClientesComponent implements OnInit, AfterViewInit  {
 
   };
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
 
     this.paginator?.page.pipe(
       tap(()=>this.paginacao())
@@ -92,39 +98,33 @@ export class ClientesComponent implements OnInit, AfterViewInit  {
 
   };
 
-  public clickLinha( row: any) {
+  public clickLinha( row: any ): void {
 
     this.clienteForm.patchValue( row );
     this.showTabela = !this.showTabela;
 
   };
 
-  public emitCliente( cliente: Cliente ){
+  public emitCliente( cliente: Cliente ) {
 
     this.clienteForm.patchValue( cliente );
 
   };
 
-  public gerarLink( cliente: Cliente): void {
+  public gerarLink( cliente: Cliente ): void {
 
-    if ( cliente.link ){
+    if ( cliente.link ) {
       this.openSnackBar( {pedidoId: cliente.pedido, statusText: 'Link existente: ' + cliente.link} );
       return;
-    };
-
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type':  'application/json'
-      })
     };
 
     const objIndex = this.clientes.findIndex(( obj => obj.pedido == cliente.pedido ));
 
     this.clientes[objIndex].process = true;
 
-    this.http.post<Cliente>('http://localhost:3000/gerarLink', cliente, httpOptions).pipe(first()).subscribe({
+    this.http.post<Cliente>('http://localhost:3000/gerarLink', cliente, this.httpOptions).pipe(first()).subscribe({
 
-      next: ( data: any) => {
+      next: ( data: any ) => {
 
         cliente.link = data.orderId;
 
@@ -142,23 +142,17 @@ export class ClientesComponent implements OnInit, AfterViewInit  {
 
   };
 
-  public consultarLink( cliente: Cliente): void {
+  public consultarLink( cliente: Cliente ): void {
 
     if ( !cliente.link ){
       this.openSnackBar( {pedidoId: cliente.pedido, statusText: 'Linke nao encontrado'} );
       return;
     };
 
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type':  'application/json'
-      })
-    };
-
     const objIndex = this.clientes.findIndex(( obj => obj.pedido == cliente.pedido ));
     this.clientes[objIndex].process = true;
 
-    this.http.post<Cliente>('http://localhost:3000/consultarLink', cliente, httpOptions ).pipe(first()).subscribe({
+    this.http.post<Cliente>('http://localhost:3000/consultarLink', cliente, this.httpOptions ).pipe(first()).subscribe({
 
       next: ( data: any ) => {
 
@@ -177,23 +171,17 @@ export class ClientesComponent implements OnInit, AfterViewInit  {
 
   };
 
-  public gerarPixCob( cliente: Cliente): void {
+  public gerarPixCob( cliente: Cliente ): void {
 
     if ( cliente.qrcode ){
       this.openSnackBar( {pedidoId: cliente.pedido, statusText: 'PIX existente: ' + cliente.txid} );
       return;
     };
 
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type':  'application/json'
-      })
-    };
-
     const objIndex = this.clientes.findIndex(( obj => obj.pedido == cliente.pedido ));
     this.clientes[objIndex].process = true;
 
-    this.http.post<Cliente>('http://localhost:3000/pix-cobranca', cliente, httpOptions ).pipe(first()).subscribe({
+    this.http.post<Cliente>('http://localhost:3000/pix-cobranca', cliente, this.httpOptions ).pipe(first()).subscribe({
 
       next: ( data: any ) => {
 
@@ -213,7 +201,7 @@ export class ClientesComponent implements OnInit, AfterViewInit  {
 
   };
 
-  private openSnackBar( data: any ) {
+  private openSnackBar( data: any ): void {
     this._snackBar.open(`Pedido: ${data.pedidoId}  Status: ${data.statusText}`, 'Fechar', {
       duration: 3000
     });
