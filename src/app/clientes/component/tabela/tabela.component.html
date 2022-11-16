@@ -3,29 +3,29 @@
 
   <ng-container matColumnDef="pedido">
     <th mat-sort-header="pedido" mat-header-cell *matHeaderCellDef> Pedido </th>
-    <td mat-cell *matCellDef="let cliente"> {{cliente.pedido}} </td>
+    <td mat-cell *matCellDef="let cliente"> {{ cliente.pedido }} </td>
   </ng-container>
 
   <ng-container matColumnDef="cliente">
     <th mat-sort-header="cliente" mat-header-cell *matHeaderCellDef> Cliente </th>
-    <td mat-cell *matCellDef="let cliente"> {{cliente.cliente}} </td>
+    <td mat-cell *matCellDef="let cliente"> {{ cliente.cliente }} </td>
   </ng-container>
 
   <ng-container matColumnDef="vendedor">
     <th mat-sort-header="vendedor" mat-header-cell *matHeaderCellDef> Vendedor </th>
-    <td mat-cell *matCellDef="let cliente"> {{cliente.vendedor}} </td>
+    <td mat-cell *matCellDef="let cliente"> {{ cliente.vendedor }} </td>
   </ng-container>
 
   <ng-container matColumnDef="valor">
     <th mat-sort-header="valor" mat-header-cell *matHeaderCellDef> Valor </th>
-    <td mat-cell *matCellDef="let cliente"> {{cliente.valor  | currency}} </td>
+    <td mat-cell *matCellDef="let cliente"> {{ cliente.valor | currency }} </td>
   </ng-container>
 
   <ng-container matColumnDef="link">
     <th mat-header-cell *matHeaderCellDef> Link </th>
     <td mat-cell *matCellDef="let cliente">
       <div style="display: flex; justify-content: start;">
-        <span> {{cliente.link }} </span>
+        <span> {{ cliente.link }} </span>
       </div>
     </td>
   </ng-container>
