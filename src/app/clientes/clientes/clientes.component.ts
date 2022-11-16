@@ -173,7 +173,7 @@ export class ClientesComponent implements OnInit, AfterViewInit {
 
   public gerarPixCob( cliente: Cliente ): void {
 
-    if ( cliente.qrcode ){
+    if ( cliente.qrcode ) {
       this.openSnackBar( {pedidoId: cliente.pedido, statusText: 'PIX existente: ' + cliente.txid} );
       return;
     };
