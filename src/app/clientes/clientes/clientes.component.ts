@@ -105,7 +105,7 @@ export class ClientesComponent implements OnInit, AfterViewInit {
 
   };
 
-  public emitCliente( cliente: Cliente ) {
+  public clienteAtual( cliente: Cliente ) {
 
     this.clienteForm.patchValue( cliente );
 
@@ -144,7 +144,7 @@ export class ClientesComponent implements OnInit, AfterViewInit {
 
   public consultarLink( cliente: Cliente ): void {
 
-    if ( !cliente.link ){
+    if ( !cliente.link ) {
       this.openSnackBar( {pedidoId: cliente.pedido, statusText: 'Linke nao encontrado'} );
       return;
     };

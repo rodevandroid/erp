@@ -12,7 +12,7 @@ export class FormularioComponent implements OnChanges {
 
   @Input() formulario: FormGroup = <FormGroup>{};
   @Output() clienteFrm: EventEmitter<any> = new EventEmitter();
-  @Output() clienteEmit: EventEmitter<Cliente> = new EventEmitter();
+  @Output() clienteDados: EventEmitter<Cliente> = new EventEmitter();
 
   public cliente: Cliente = <Cliente>{};
 
@@ -36,7 +36,7 @@ export class FormularioComponent implements OnChanges {
 
   emiteCliente( cliente: Cliente): void {
 
-    this.clienteEmit.emit( cliente );
+    this.clienteDados.emit( cliente );
 
   };
 
