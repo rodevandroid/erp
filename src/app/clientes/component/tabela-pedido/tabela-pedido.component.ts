@@ -47,12 +47,10 @@ export class TabelaPedidoComponent implements OnChanges {
     this.service.getClienteById( this.cliente.pedido ).then( resp => {
 
       this.dataSource = <Cliente[]>resp;
-      console.table( this.dataSource );
 
     });
 
   };
-
 
   selecionaCliente( cliente: Cliente ): void {
 
