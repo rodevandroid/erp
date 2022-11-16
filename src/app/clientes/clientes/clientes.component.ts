@@ -41,7 +41,7 @@ export class ClientesComponent implements OnInit, AfterViewInit {
     txid    : new FormControl(''),
   });
 
-  constructor( private http: HttpClient, private _snackBar: MatSnackBar ) {
+  constructor( private _http: HttpClient, private _snackBar: MatSnackBar ) {
 
     this.service = new ClienteService();
 
@@ -122,7 +122,7 @@ export class ClientesComponent implements OnInit, AfterViewInit {
 
     this.clientes[objIndex].process = true;
 
-    this.http.post<Cliente>('http://localhost:3000/gerarLink', cliente, this.httpOptions).pipe(first()).subscribe({
+    this._http.post<Cliente>('http://localhost:3000/gerarLink', cliente, this.httpOptions).pipe(first()).subscribe({
 
       next: ( data: any ) => {
 
@@ -152,7 +152,7 @@ export class ClientesComponent implements OnInit, AfterViewInit {
     const objIndex = this.clientes.findIndex(( obj => obj.pedido == cliente.pedido ));
     this.clientes[objIndex].process = true;
 
-    this.http.post<Cliente>('http://localhost:3000/consultarLink', cliente, this.httpOptions ).pipe(first()).subscribe({
+    this._http.post<Cliente>('http://localhost:3000/consultarLink', cliente, this.httpOptions ).pipe(first()).subscribe({
 
       next: ( data: any ) => {
 
@@ -181,14 +181,14 @@ export class ClientesComponent implements OnInit, AfterViewInit {
     const objIndex = this.clientes.findIndex(( obj => obj.pedido == cliente.pedido ));
     this.clientes[objIndex].process = true;
 
-    this.http.post<Cliente>('http://localhost:3000/pix-cobranca', cliente, this.httpOptions ).pipe(first()).subscribe({
+    this._http.post<Cliente>('http://localhost:3000/pix-cobranca', cliente, this.httpOptions ).pipe(first()).subscribe({
 
       next: ( data: any ) => {
 
         this.clientes[objIndex].process = false;
-        this.clientes[objIndex].pix = data.location;
-        this.clientes[objIndex].qrcode = data.textoImagemQRcode;
-        this.clientes[objIndex].txid = data.txid;
+        this.clientes[objIndex].pix     = data.location;
+        this.clientes[objIndex].qrcode  = data.textoImagemQRcode;
+        this.clientes[objIndex].txid    = data.txid;
 
       }, error: ( err ) => {
 
@@ -202,7 +202,7 @@ export class ClientesComponent implements OnInit, AfterViewInit {
   };
 
   private openSnackBar( data: any ): void {
-    this._snackBar.open(`Pedido: ${data.pedidoId}  Status: ${data.statusText}`, 'Fechar', {
+    this._snackBar.open(`Pedido: ${data.pedidoId} Status: ${data.statusText}`, 'Fechar', {
       duration: 3000
     });
   };

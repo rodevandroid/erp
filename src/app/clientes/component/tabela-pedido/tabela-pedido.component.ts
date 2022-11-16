@@ -20,7 +20,7 @@ export class TabelaPedidoComponent implements OnChanges {
   public dataSource: Cliente[] = [];
   public colunas: string[]  = [];
 
-  constructor(private service: ClienteService, private breakpointObserver: BreakpointObserver) {
+  constructor(private _service: ClienteService, private _breakpointObserver: BreakpointObserver) {
 
     this.displayedColumns.subscribe(
       resp => this.colunas = <string[]>resp
@@ -28,7 +28,7 @@ export class TabelaPedidoComponent implements OnChanges {
 
   };
 
-  private displayedColumns = this.breakpointObserver.observe(Breakpoints.Tablet).pipe(
+  private displayedColumns = this._breakpointObserver.observe(Breakpoints.Tablet).pipe(
 
     map(({ matches }) => {
 
@@ -44,7 +44,7 @@ export class TabelaPedidoComponent implements OnChanges {
 
   ngOnChanges(): void {
 
-    this.service.getClienteById( this.cliente.pedido ).then( resp => {
+    this._service.getClienteById( this.cliente.pedido ).then( resp => {
 
       this.dataSource = <Cliente[]>resp;
 
