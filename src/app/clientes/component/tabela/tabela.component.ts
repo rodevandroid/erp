@@ -52,9 +52,7 @@ export class TabelaComponent implements AfterViewInit{
 
   ngAfterViewInit(): void {
 
-    this.paginator.page.pipe(
-      tap( () => this.paginacao.emit( this.paginator ) )
-    ).subscribe();
+    this.paginator.page.pipe(tap( () => this.paginacao.emit( this.paginator ) ) ).subscribe();
 
   };
 

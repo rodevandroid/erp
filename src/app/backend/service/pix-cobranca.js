@@ -2,7 +2,7 @@ const axios = require("axios")
 
 module.exports = function getPixToken( param ) {
 
-  return axios.put('https://api.hm.bb.com.br/pix/v1/cobqrcode/?gw-dev-app-key=d27be77904ffab90136ce17d60050056b9f1a5b7', {
+  return axios.put('https://api.hm.bb.com.br/pix/v1/cobqrcode/?gw-dev-app-key=5fbe86e7b909797b38250169e5c70e44', {
     calendario: {
         expiracao: 36000
     },

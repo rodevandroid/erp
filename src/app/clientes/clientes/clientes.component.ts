@@ -66,9 +66,7 @@ export class ClientesComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
 
-    this.paginator?.page.pipe(
-      tap(()=>this.paginacao())
-    ).subscribe();
+    this.paginator?.page.pipe(tap(()=>this.paginacao())).subscribe();
 
   };
 
@@ -133,7 +131,6 @@ export class ClientesComponent implements OnInit, AfterViewInit {
 
       }, error: ( err ) => {
 
-        console.log( 'Erro no subscribe gerar link: ', err );
         this.clientes[objIndex].process = false;
 
       }
@@ -162,7 +159,6 @@ export class ClientesComponent implements OnInit, AfterViewInit {
 
       }, error: ( err ) => {
 
-        console.log( 'Erro no subscribe consulta link: ', err );
         this.clientes[objIndex].process = false;
 
       }
@@ -192,7 +188,7 @@ export class ClientesComponent implements OnInit, AfterViewInit {
 
       }, error: ( err ) => {
 
-        console.log( 'Erro no subscribe gerar pix cobranca: ', err );
+        console.table( 'Erro no subscribe gerar pix cobranca: ', err.statusText );
         this.clientes[objIndex].process = false;
 
       }
